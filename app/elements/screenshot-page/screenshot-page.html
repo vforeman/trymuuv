@@ -9,15 +9,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="screenshot-page">
   <template>
     <style>
       :host {
         display: block;
+        min-height: 900px;
+        background: var(--bg-grey);
       }
     </style>
-    <div>Hello from <span>{{elementName}}</span></div>
+    <iron-pages id='pages' selected="0" class='layout vertical center'>
+      <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
+      <iron-image src="../../images/screenshot-page/profileiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
+      <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
+      <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
+    </iron-pages>
   </template>
   <script>
   (function() {
@@ -31,9 +40,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       behaviors: [],
       listeners:{
+        'track': '_onTrack',
+        'swipe-right': '_onSwipe',
+        'swipe-left': '_onSwipe'
       },
       properties: {
+        isSwiping: {type: Boolean, value: false, notify: true},
         elementName: {type: String, value: 'screenshot-page', notify: true}
+      },
+      _onSwipe: function(e){
+        switch(e.type){
+          case 'swipe-left':
+              this.$.pages.selectPrevious();
+            break;
+          case 'swipe-right':
+              this.$.pages.selectNext();
+            break;
+        }
+      },
+      _onTrack: function(e){
+        switch(e.detail.state) {
+          case 'start':
+            this.isSwiping = false;
+            this.message = 'Tracking started!';
+            this.trackDeltaX = 0
+            break;
+          case 'track':
+            this.message = 'Tracking in progress... ' +
+              e.detail.x + ', ' + e.detail.y +
+              '>>>>>> '+e.detail.dx + ', ' + e.detail.dy;
+              if(Math.abs(e.detail.dx) > 200 && Math.abs(e.detail.dx) > Math.abs(e.detail.dy) && !this.isSwiping){
+                if(e.detail.dx < 0){
+                  this.isSwiping = true;
+                  this.fire('swipe-left');
+                } else {
+                  this.isSwiping = true;
+                  this.fire('swipe-right');
+                }
+              }
+            break;
+          case 'end':
+            this.message = 'Tracking ended!';
+            break;
+        }
+        console.log(this.message);
       }
     });
   })();
