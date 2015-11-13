@@ -18,12 +18,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         font-family: 'aktivgrotesk';
-        @apply(--layout )
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        height: 100%;
       }
     </style>
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
-
+    <div class='flex'></div>
+    <div id='input' class='flex layout vertical center'>
+      <div class='ui input'>
+        <input is='iron-input' class='ui input' placeholder='email'></input>
+      </div>
+      <div>
+        <span>I am a <span>{{userType}}</span>.</span>
+      </div>
+    </div>
+    <div class='flex'></div>
 
   </template>
   <script>
@@ -42,6 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
+        userType: {type: String, value: 'splash-page', notify: true}
         elementName: {type: String, value: 'splash-page', notify: true}
       }
     });
