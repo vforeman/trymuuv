@@ -10,28 +10,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="mission-page">
+<dom-module id="about-page">
   <template>
     <style>
       :host {
         display: block;
-        min-height: 900px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
       }
     </style>
-      <span class='flex'></span>
-      <div class='layout vertical center'>
-        <div>Hello from <span>{{elementName}}</span></div>
-      </div>
-      <span class='flex'></span>
+    <div>Hello from <span>{{elementName}}</span></div>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'mission-page',
+      is: 'about-page',
       created: function(){
       },
       ready: function(){
@@ -40,7 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
       },
       properties: {
-        elementName: {type: String, value: 'mission-page', notify: true}
+        elementName: {type: String, value: 'about-page', notify: true}
       }
     });
   })();
