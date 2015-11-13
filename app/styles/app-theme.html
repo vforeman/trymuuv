@@ -46,6 +46,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
     @font-face{
+      font-family: 'aktivgrotesklight';
+      src: url('aktivgrotesklight.ttf');
+    }
+    @font-face{
       font-family: 'aktivgrotesk';
       src: url('aktivgrotesk.ttf');
     }
@@ -64,9 +68,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   paper-material {
     border-radius: 2px;
     height: 100%;
-    padding: 16px 0 16px 0;
-    width: calc(98.66% - 16px);
-    margin: 16px auto;
+    min-width: 100%;
+    padding: 0px 0 0px;
+    margin: 0px 0 0px;
+    /*width: calc(98.66% - 16px);*/
+    /*margin: 16px auto;*/
     background: white;
   }
 
@@ -138,7 +144,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     paper-material {
       --menu-container-display: none;
-      width: calc(97.33% - 32px);
+      /*width: calc(97.33% - 32px);*/
       padding-left: 16px;
       padding-right: 16px;
     }
@@ -170,10 +176,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @media (min-width: 601px) {
 
     paper-material {
-      width: calc(98% - 46px);
-      margin-bottom: 32px;
-      padding-left: 30px;
-      padding-right: 30px;
+      /*width: calc(98% - 46px);*/
+      /*margin-bottom: 32px;*/
+      /*padding-left: 30px;*/
+      /*padding-right: 30px;*/
     }
 
     #drawer.paper-drawer-panel > [drawer] {

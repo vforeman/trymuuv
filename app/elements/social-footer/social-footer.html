@@ -9,15 +9,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="social-footer">
   <template>
     <style>
       :host {
         display: block;
+        min-height: 264px;
+        background: black;
+        color: white;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        text-align: center;
+      }
+      .social-card{
+        font-family: 'aktivgrotesklight';
+        font-size: 1.2em;
+        text-align: center;
+        max-width:500px;
+        /*min-width:500px;*/
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+      }
+      i{
+        color:white;
       }
     </style>
-    <div>Hello from <span>{{elementName}}</span></div>
+
+      <span class='flex'></span>
+    <iron-image src='../../images/about-page/anycityisyours.png' width='300' height='64' sizing='contain'></iron-image>
+    <span class='social-card self-center'>
+      <i class='twitter icon big'></i>
+      <i class='instagram icon big'></i>
+      <span class='self-center'>@muuvapp</span>
+    </span>
+      <span class='flex'></span>
   </template>
   <script>
   (function() {

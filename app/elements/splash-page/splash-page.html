@@ -24,7 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-family: 'aktivgrotesk';
         @apply(--layout-horizontal);
         @apply(--layout-center);
-        min-height: 900px;
+        min-height: 100%;
       }
       iron-icon{
         --iron-icon-width:64px;
@@ -38,11 +38,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class='flex'></div>
       <div id='input' class='flex layout vertical center'>
         <div class='ui input'>
-          <input is='iron-input' class='ui input' placeholder='email'></input>
+          <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
         </div>
         <div>
           <span>I usually <span>
-            <paper-dropdown-menu label="">
+            <paper-dropdown-menu label="" selected=''>
               <paper-menu class="dropdown-content">
                 <paper-item>Go to</paper-item>
                 <paper-item>Host</paper-item>
@@ -77,8 +77,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
+        email: {type: String, value: 'splash-page', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
+      },
+      _onSubmit: function(e){
+
       }
     });
   })();
