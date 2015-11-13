@@ -15,10 +15,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
+        overflow: visible;
       }
     </style>
-    <div>Hello from <span>{{elementName}}</span></div>
-  </template>
+    <!-- CONDITIONAL STYLE LOADING -->
+      <template is='dom-if' if='{{topleft}}'>
+        <style is='custom-style'>
+          :host.topleft{ width:400px; height:190px; position: fixed; top:0px; left: 0px;}
+          iron-icon.topleft{ --iron-icon-height: 190px; --iron-icon-width: 400px;}
+        </style>
+      </template>
+      <template is='dom-if' if='{{topright}}'>
+        <style is='custom-style'>
+          :host.topright{ width: calc(584px / 2); height: calc(391px / 2); position: fixed; top:0px; right: 0px;}
+          iron-icon.topright{ --iron-icon-height: calc(391px / 2); --iron-icon-width: calc(584px / 2);}
+        </style>
+      </template>
+      <template is='dom-if' if='{{bottomright}}'>
+      <style is='custom-style'>
+        :host.bottomright{ width:calc(352px / 2); height:calc(443px / 2); position: fixed; bottom:0px; right: 0px;}
+        iron-icon.bottomright{ --iron-icon-height: calc(443px / 2); --iron-icon-width: calc(352px / 2); }
+      </style>
+      </template>
+      <template is='dom-if' if='{{bottomleft}}'>
+      <style is='custom-style'>
+        :host.bottomleft{ width:calc(344px / 2); height:calc(715px / 2); position: fixed; bottom:0px; left: 0px; }
+        iron-icon.bottomleft{ --iron-icon-height: calc(715px / 2); --iron-icon-width: calc(344px / 2); }
+      </style>
+      </template>
+      <template is='dom-if' if='{{center}}'>
+      <style is='custom-style'>
+        :host.center{ width:calc(1064px/2); height:calc(790px/2); position: fixed; overflow: visible; top: calc(50% - 790px/4); left: calc(50% - 1064px/4); }
+        iron-icon.center{ --iron-icon-height: calc(790px/2); --iron-icon-width: calc(1064px/2); }
+      </style>
+      </template>
+    <!-- SPOT SVG -->
+        <iron-icon id='spot' src="{{_imageUrl(position,theme)}}"></iron-icon>  </template>
   <script>
   (function() {
     'use strict';
@@ -33,7 +65,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
       },
       properties: {
+        center: {type: Boolean, value:false, notify: true},
+        topleft: {type: Boolean, value:false, notify: true},
+        topright: {type: Boolean, value:false, notify: true},
+        bottomright: {type: Boolean, value:false, notify: true},
+        bottomleft: {type: Boolean, value:false, notify: true},
         elementName: {type: String, value: 'muuv-spot', notify: true}
+      },
+      _imageUrl: function(position,theme){
+        this.toggleClass(position, true);
+        this.toggleClass(position, true,this.$.spot);
+        this[position] = true;
+        this.async(function(){
+          this._transformCenter();
+        });
+
+        var url = '../../images/home/%POSITION-%THEME.svg';
+        url = url.replace('%POSITION',position).replace('%THEME',theme);
+        return url;
       }
     });
   })();
