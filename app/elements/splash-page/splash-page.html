@@ -9,6 +9,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../muuv-spot/muuv-spot.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="splash-page">
   <template>
@@ -16,9 +22,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         font-family: 'aktivgrotesk';
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        height: 100%;
+      }
+      iron-icon{
+        --iron-icon-width:64px;
+        --iron-icon-height:64px;
       }
     </style>
-    <div>Hello from <span>{{elementName}}</span></div>
+    <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
+    <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+    <div class='flex'></div>
+    <div class='layout vertical self-stretch'>
+      <div class='flex'></div>
+      <div id='input' class='flex layout vertical center'>
+        <div class='ui input'>
+          <input is='iron-input' class='ui input' placeholder='email'></input>
+        </div>
+        <div>
+          <span>I usually <span>
+            <paper-dropdown-menu label="">
+              <paper-menu class="dropdown-content">
+                <paper-item>Go to</paper-item>
+                <paper-item>Host</paper-item>
+                <paper-item>Both, Host and Attend</paper-item>
+              </paper-menu>
+            </paper-dropdown-menu>
+          </span> events.</span>
+        </div>
+        <div class='ui button'>
+          <button is='iron-button' class='ui button'>I Can't Wait</button>
+        </div>
+        <div class='flex'></div>
+        <iron-icon icon='expand-less'></iron-icon>
+      </div>
+    </div>
+    <div class='flex'></div>
+
   </template>
   <script>
   (function() {
@@ -34,6 +75,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
       },
       properties: {
+        isMobile: {type: Boolean, value: false, notify: true},
+        isDesktop: {type: Boolean, value: false, notify: true},
+        userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
       }
     });
