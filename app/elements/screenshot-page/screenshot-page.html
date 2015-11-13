@@ -10,6 +10,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-right-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-from-right-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-from-left-animation.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="screenshot-page">
@@ -20,13 +25,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         min-height: 900px;
         background: var(--bg-grey);
       }
+      :host(.fadin){
+        -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
+      }
+      @keyframes fadein {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+      }
+      /* Firefox < 16 */
+      @-moz-keyframes fadein {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+      }
     </style>
-    <iron-pages id='pages' selected="0" class='layout vertical center'>
+    <neon-animated-pages id='pages' selected="0" class='layout vertical center'
+      entry-animation='{{entryAnimation}}'
+      exit-animation='{{exitAnimation}}'>
       <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
       <iron-image src="../../images/screenshot-page/profileiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
       <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
       <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
-    </iron-pages>
+    </neon-animated-pages>
   </template>
   <script>
   (function() {
@@ -45,16 +68,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         'swipe-left': '_onSwipe'
       },
       properties: {
+        exitAnimation: {type: String, notify: true},
+        entryAnimation: {type: String, notify: true},
         isSwiping: {type: Boolean, value: false, notify: true},
         elementName: {type: String, value: 'screenshot-page', notify: true}
       },
       _onSwipe: function(e){
         switch(e.type){
           case 'swipe-left':
-              this.$.pages.selectPrevious();
+            this.entryAnimation = 'slide-from-left-animation';
+            this.exitAnimation = 'slide-right-animation';
+            this.$.pages.selectPrevious();
             break;
           case 'swipe-right':
-              this.$.pages.selectNext();
+            this.entryAnimation = 'slide-from-right-animation';
+            this.exitAnimation = 'slide-left-animation';
+            this.$.pages.selectNext();
             break;
         }
       },
