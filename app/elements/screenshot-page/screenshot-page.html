@@ -75,12 +75,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _onSwipe: function(e){
         switch(e.type){
-          case 'swipe-left':
+          case 'swipe-right':
             this.entryAnimation = 'slide-from-left-animation';
             this.exitAnimation = 'slide-right-animation';
             this.$.pages.selectPrevious();
             break;
-          case 'swipe-right':
+          case 'swipe-left':
             this.entryAnimation = 'slide-from-right-animation';
             this.exitAnimation = 'slide-left-animation';
             this.$.pages.selectNext();
