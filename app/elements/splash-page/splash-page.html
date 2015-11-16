@@ -27,13 +27,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-center);
         min-height: 100%;
       }
-      #input{
-        z-index: 3;
-        font-family: 'aktivgrotesk';
-      }
-      #dropdownMenu{
-        --paper-menu-background-dolor: transparent;
-      }
+
+
       #submitBtn{
         border-radius: 64px;
         height: 44px;
@@ -50,28 +45,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --iron-icon-width:64px;
         --iron-icon-height:64px;
       }
+
       paper-dropdown-menu{
+        --paper-dropdown-menu-button:{
+          max-width:256px;
+        };
         --paper-dropdown-menu-input:{
           font-family: 'aktivgrotesk';
           text-align:center;
           font-size:1.6em;
           line-height: 1.3em;
-        }
-      }
-      #userTypeInput{
-          font-family: 'aktivgrotesk';
-        color: white;
-        font-size: 1.6em;
-      }
-      #emailInput{
-        border-radius: 64px;
-        background: var(--bg-grey);
-      }
-      #emailInput input{
-          font-family: 'aktivgrotesk';
-        border-radius: 64px;
-        background: transparent;
-        font-size:1.6em;
+          color:var(--accent-color);
+          --paper-input-container-focus-color: var(--accent-color);
+        };
+        --paper-input-container-input-color: white;
+        --paper-input-container-input:{
+            font-size: 30px;
+          };
       }
       #arrow.shake{
         animation: shakeup 500ms 1 linear;
@@ -144,11 +134,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <muuv-spot position='bottomright'></muuv-spot>
       <muuv-spot position='center'></muuv-spot>
     </template>
+    <template is='dom-if' if='{{isMobile}}'>
+      <muuv-spot position='center'></muuv-spot>
+    </template>
 
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
-
+    <template is='dom-if' if='{{isMobile}}'>
+      <link rel="import" href="mobile-theme.html">
+    </template>
+    <template is='dom-if' if='{{!isMobile}}'>
+      <link rel="import" href="desktop-theme.html">
+    </template>
 
     <div class='flex'></div>
     <div class='layout vertical self-stretch'>
@@ -158,15 +156,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
         </div>
         <div id='userTypeInput'>
-          <span class='text'>I usually <span class='text'>
-            <paper-dropdown-menu label="" selected=''>
-              <paper-menu id='dropdownMenu' class="dropdown-content">
-                <paper-item>Go to</paper-item>
-                <paper-item>Host</paper-item>
-                <paper-item>Both, Host and Attend</paper-item>
+          <span class='text'>"I usually <span class='text'>
+            <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
+              <paper-menu  class="dropdown-content">
+                <paper-item>go to</paper-item>
+                <paper-item>host</paper-item>
+                <paper-item>go to and host</paper-item>
               </paper-menu>
             </paper-dropdown-menu>
-          </span> events.</span>
+          </span> events."</span>
         </div>
         <div class='flex'></div>
         <div id='submitBtn' class='ui button'>
