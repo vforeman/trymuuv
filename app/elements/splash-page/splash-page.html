@@ -26,9 +26,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-center);
         min-height: 100%;
       }
+      #input{
+        z-index: 3;
+        font-family: 'aktivgrotesk';
+      }
+      #dropdownMenu{
+        --paper-menu-background-dolor: transparent;
+      }
+      #submitBtn{
+        border-radius: 64px;
+        background: var(--accent-color);
+      }
+      #submitBtn button{
+        font-family: 'aktivgrotesk';
+        background:transparent;
+        color:white;
+        border-radius: 64px;
+      }
       iron-icon{
         --iron-icon-width:64px;
         --iron-icon-height:64px;
+      }
+      paper-dropdown-menu{
+        --paper-dropdown-menu-input:{
+          font-family: 'aktivgrotesk';
+          text-align:center;
+          font-size:1.6em;
+          line-height: 1.3em;
+        }
+      }
+      #userTypeInput{
+          font-family: 'aktivgrotesk';
+        color: white;
+        font-size: 1.6em;
+      }
+      #emailInput{
+        border-radius: 64px;
+        background: var(--bg-grey);
+      }
+      #emailInput input{
+          font-family: 'aktivgrotesk';
+        border-radius: 64px;
+        background: transparent;
+        font-size:1.6em;
       }
       #arrow.shake{
         animation: shake 150ms 2 linear;
@@ -38,35 +78,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       @keyframes shake {
          0% {
-           transform: translate(3px, 0);
+           transform: translateY(3px);
          }
          50% {
-           transform: translate(-3px, 0);
+           transform: translateY(-3px);
          }
          100% {
-           transform: translate(0, 0);
+           transform: translateY(0);
          }
        }
        @-moz-keyframes shake {
          0% {
-           -moz-transform: translate(3px, 0);
+           -moz-transform: translateY(3px);
          }
          50% {
-           -moz-transform: translate(-3px, 0);
+           -moz-transform: translateY(-3px);
          }
          100% {
-           -moz-transform: translate(0, 0);
+           -moz-transform: translateY(0);
          }
        }
        @-webkit-keyframes shake {
          0% {
-           -webkit-transform: translate(3px, 0);
+           -webkit-transform: translateY(3px);
          }
          50% {
-           -webkit-transform: translate(-3px, 0);
+           -webkit-transform: translateY(-3px);
          }
          100% {
-           -webkit-transform: translate(0, 0);
+           -webkit-transform: translateY(0);
          }
        }
        @-ms-keyframes shake {
@@ -92,19 +132,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          }
        }
     </style>
+
+    <!-- SPOTS -->
+    <muuv-spot position='topleft'></muuv-spot>
+    <muuv-spot position='bottomleft'></muuv-spot>
+    <muuv-spot position='topright'></muuv-spot>
+    <muuv-spot position='bottomright'></muuv-spot>
+    <muuv-spot position='center'></muuv-spot>
+
+    <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+
+
     <div class='flex'></div>
     <div class='layout vertical self-stretch'>
       <div class='flex'></div>
       <div id='input' class='flex layout vertical center'>
-        <div class='ui input'>
+        <div id='emailInput' class='ui input'>
           <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
         </div>
-        <div>
-          <span>I usually <span>
+        <div id='userTypeInput'>
+          <span class='text'>I usually <span class='text'>
             <paper-dropdown-menu label="" selected=''>
-              <paper-menu class="dropdown-content">
+              <paper-menu id='dropdownMenu' class="dropdown-content">
                 <paper-item>Go to</paper-item>
                 <paper-item>Host</paper-item>
                 <paper-item>Both, Host and Attend</paper-item>
@@ -112,11 +163,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-dropdown-menu>
           </span> events.</span>
         </div>
-        <div class='ui button'>
-          <button is='iron-button' class='ui button'>I Can't Wait</button>
+        <div class='flex'></div>
+        <div id='submitBtn' class='ui button'>
+          <button is='iron-button' class='ui button'>TELL ME MORE</button>
         </div>
         <div class='flex'></div>
-        <div>
+        <div class='flex'>
+          <div class='flex'></div>
           <iron-icon id='arrow' icon='expand-less'></iron-icon>
         </div>
       </div>
@@ -134,6 +187,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       ready: function(){
         setInterval(this._jiggleArrow.bind(this),3000);
+        // this.style.background = "url('../../images/splash-page/background.png')";
+        // this.style.backgroundRepeat = 'no-repeat';
+        // this.style.backgroundSize = 'auto cover';
+        // this.style.backgroundPosition = 'center center';
       },
       behaviors: [],
       listeners:{
@@ -141,7 +198,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
-        email: {type: String, value: 'splash-page', notify: true},
+        email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
       },
