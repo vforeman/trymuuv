@@ -1,0 +1,70 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="mission-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+        min-height: 900px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        padding: 144px 144px;
+        font-family: 'aktivgrotesk';
+        font-size: 1.9em;
+      }
+      p{
+        text-align:justify;
+        line-height: 1.6em;
+      }
+      .highlight-logo{
+        font-size: 2em;
+        color:var(--accent-color);
+      }
+      .highlight{
+        font-size: 1.5em;
+        color:var(--accent-color);
+      }
+      .tm{
+        font-size: 1.2em;
+        color:var(--accent-color);
+      }
+    </style>
+      <span class='flex'></span>
+      <p class='center'><span class='highlight-logo'>Muuv</span> is a social event platform designed to create a community through events.
+        We <span class='highlight'>connect</span> people through shared experiences, which are easy to find, host, and
+        be a part of. Muuv changes the way you <span class='highlight'>discover</span> events and purchase tickets. We
+        are committed to shaping one <span class='highlight'>community</span>  for those who want to create memories
+        through live experiences.
+      </p>
+      <span class='flex'></span>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'mission-page',
+      created: function(){
+      },
+      ready: function(){
+      },
+      behaviors: [],
+      listeners:{
+      },
+      properties: {
+        elementName: {type: String, value: 'mission-page', notify: true}
+      }
+    });
+  })();
+  </script>
+</dom-module>

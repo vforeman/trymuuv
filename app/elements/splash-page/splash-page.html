@@ -1,0 +1,218 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../muuv-spot/muuv-spot.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="splash-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: 'aktivgrotesk';
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        min-height: 100%;
+      }
+      #input{
+        z-index: 3;
+        font-family: 'aktivgrotesk';
+      }
+      #dropdownMenu{
+        --paper-menu-background-dolor: transparent;
+      }
+      #submitBtn{
+        border-radius: 64px;
+        background: var(--accent-color);
+      }
+      #submitBtn button{
+        font-family: 'aktivgrotesk';
+        background:transparent;
+        color:white;
+        border-radius: 64px;
+      }
+      iron-icon{
+        --iron-icon-width:64px;
+        --iron-icon-height:64px;
+      }
+      paper-dropdown-menu{
+        --paper-dropdown-menu-input:{
+          font-family: 'aktivgrotesk';
+          text-align:center;
+          font-size:1.6em;
+          line-height: 1.3em;
+        }
+      }
+      #userTypeInput{
+          font-family: 'aktivgrotesk';
+        color: white;
+        font-size: 1.6em;
+      }
+      #emailInput{
+        border-radius: 64px;
+        background: var(--bg-grey);
+      }
+      #emailInput input{
+          font-family: 'aktivgrotesk';
+        border-radius: 64px;
+        background: transparent;
+        font-size:1.6em;
+      }
+      #arrow.shake{
+        animation: shake 150ms 2 linear;
+        -moz-animation: shake 150ms 2 linear;
+        -webkit-animation: shake 150ms 2 linear;
+        -o-animation: shake 150ms 2 linear;
+      }
+      @keyframes shake {
+         0% {
+           transform: translateY(3px);
+         }
+         50% {
+           transform: translateY(-3px);
+         }
+         100% {
+           transform: translateY(0);
+         }
+       }
+       @-moz-keyframes shake {
+         0% {
+           -moz-transform: translateY(3px);
+         }
+         50% {
+           -moz-transform: translateY(-3px);
+         }
+         100% {
+           -moz-transform: translateY(0);
+         }
+       }
+       @-webkit-keyframes shake {
+         0% {
+           -webkit-transform: translateY(3px);
+         }
+         50% {
+           -webkit-transform: translateY(-3px);
+         }
+         100% {
+           -webkit-transform: translateY(0);
+         }
+       }
+       @-ms-keyframes shake {
+         0% {
+           -ms-transform: translate(3px, 0);
+         }
+         50% {
+           -ms-transform: translate(-3px, 0);
+         }
+         100% {
+           -ms-transform: translate(0, 0);
+         }
+       }
+       @-o-keyframes shake {
+         0% {
+           -o-transform: translate(3px, 0);
+         }
+         50% {
+           -o-transform: translate(-3px, 0);
+         }
+         100% {
+           -o-transform: translate(0, 0);
+         }
+       }
+    </style>
+
+    <!-- SPOTS -->
+    <muuv-spot position='topleft'></muuv-spot>
+    <muuv-spot position='bottomleft'></muuv-spot>
+    <muuv-spot position='topright'></muuv-spot>
+    <muuv-spot position='bottomright'></muuv-spot>
+    <muuv-spot position='center'></muuv-spot>
+
+    <!-- MEDIA QUERY -->
+    <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
+    <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+
+
+    <div class='flex'></div>
+    <div class='layout vertical self-stretch'>
+      <div class='flex'></div>
+      <div id='input' class='flex layout vertical center'>
+        <div id='emailInput' class='ui input'>
+          <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
+        </div>
+        <div id='userTypeInput'>
+          <span class='text'>I usually <span class='text'>
+            <paper-dropdown-menu label="" selected=''>
+              <paper-menu id='dropdownMenu' class="dropdown-content">
+                <paper-item>Go to</paper-item>
+                <paper-item>Host</paper-item>
+                <paper-item>Both, Host and Attend</paper-item>
+              </paper-menu>
+            </paper-dropdown-menu>
+          </span> events.</span>
+        </div>
+        <div class='flex'></div>
+        <div id='submitBtn' class='ui button'>
+          <button is='iron-button' class='ui button'>TELL ME MORE</button>
+        </div>
+        <div class='flex'></div>
+        <div class='flex'>
+          <div class='flex'></div>
+          <iron-icon id='arrow' icon='expand-less'></iron-icon>
+        </div>
+      </div>
+    </div>
+    <div class='flex'></div>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'splash-page',
+      created: function(){
+      },
+      ready: function(){
+        setInterval(this._jiggleArrow.bind(this),3000);
+        // this.style.background = "url('../../images/splash-page/background.png')";
+        // this.style.backgroundRepeat = 'no-repeat';
+        // this.style.backgroundSize = 'auto cover';
+        // this.style.backgroundPosition = 'center center';
+      },
+      behaviors: [],
+      listeners:{
+      },
+      properties: {
+        isMobile: {type: Boolean, value: false, notify: true},
+        isDesktop: {type: Boolean, value: false, notify: true},
+        email: {type: String, value: '', notify: true},
+        userType: {type: String, value: 'splash-page', notify: true},
+        elementName: {type: String, value: 'splash-page', notify: true}
+      },
+      _jiggleArrow: function(){
+        console.log('jiggleing....');
+        this.toggleClass('shake', true, this.$.arrow);
+        setTimeout((function(){
+          this.toggleClass('shake', false, this.$.arrow);
+        }).bind(this),1000);
+      },
+      _onSubmit: function(e){
+
+      }
+    });
+  })();
+  </script>
+</dom-module>
