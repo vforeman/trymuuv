@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style>
       :host {
+        overflow:hidden;
         display: block;
         font-family: 'aktivgrotesk';
         @apply(--layout-horizontal);
@@ -35,9 +36,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       #submitBtn{
         border-radius: 64px;
+        height: 44px;
         background: var(--accent-color);
       }
       #submitBtn button{
+        padding: 4px 4px;
         font-family: 'aktivgrotesk';
         background:transparent;
         color:white;
@@ -71,74 +74,76 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-size:1.6em;
       }
       #arrow.shake{
-        animation: shake 150ms 2 linear;
-        -moz-animation: shake 150ms 2 linear;
-        -webkit-animation: shake 150ms 2 linear;
-        -o-animation: shake 150ms 2 linear;
+        animation: shakeup 500ms 1 linear;
+        -moz-animation: shakeup 500ms 1 linear;
+        -webkit-animation: shakeup 500ms 1 linear;
+        -o-animation: shakeup 500ms 1 linear;
       }
-      @keyframes shake {
+      @keyframes shakeup {
          0% {
-           transform: translateY(3px);
+           transform: translateY(12px);
          }
          50% {
-           transform: translateY(-3px);
+           transform: translateY(-6px);
          }
          100% {
            transform: translateY(0);
          }
        }
-       @-moz-keyframes shake {
+       @-moz-keyframes shakeup {
          0% {
-           -moz-transform: translateY(3px);
+           -moz-transform: translateY(12px);
          }
          50% {
-           -moz-transform: translateY(-3px);
+           -moz-transform: translateY(-6px);
          }
          100% {
            -moz-transform: translateY(0);
          }
        }
-       @-webkit-keyframes shake {
+       @-webkit-keyframes shakeup {
          0% {
-           -webkit-transform: translateY(3px);
+           -webkit-transform: translateY(12px);
          }
          50% {
-           -webkit-transform: translateY(-3px);
+           -webkit-transform: translateY(-6px);
          }
          100% {
            -webkit-transform: translateY(0);
          }
        }
-       @-ms-keyframes shake {
+       @-ms-keyframes shakeup {
          0% {
-           -ms-transform: translate(3px, 0);
+           -ms-transform: translateY(12px);
          }
          50% {
-           -ms-transform: translate(-3px, 0);
+           -ms-transform: translateY(-6px);
          }
          100% {
-           -ms-transform: translate(0, 0);
+           -ms-transform: translateY(0);
          }
        }
-       @-o-keyframes shake {
+       @-o-keyframes shakeup {
          0% {
-           -o-transform: translate(3px, 0);
+           -o-transform: translateY(12px);
          }
          50% {
-           -o-transform: translate(-3px, 0);
+           -o-transform: translateY(-6px);
          }
          100% {
-           -o-transform: translate(0, 0);
+           -o-transform: translateY(0);
          }
        }
     </style>
 
     <!-- SPOTS -->
-    <muuv-spot position='topleft'></muuv-spot>
-    <muuv-spot position='bottomleft'></muuv-spot>
-    <muuv-spot position='topright'></muuv-spot>
-    <muuv-spot position='bottomright'></muuv-spot>
-    <muuv-spot position='center'></muuv-spot>
+    <template is='dom-if' if='{{isDesktop}}'>
+      <muuv-spot position='topleft'></muuv-spot>
+      <muuv-spot position='bottomleft'></muuv-spot>
+      <muuv-spot position='topright'></muuv-spot>
+      <muuv-spot position='bottomright'></muuv-spot>
+      <muuv-spot position='center'></muuv-spot>
+    </template>
 
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
@@ -207,7 +212,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.toggleClass('shake', true, this.$.arrow);
         setTimeout((function(){
           this.toggleClass('shake', false, this.$.arrow);
-        }).bind(this),1000);
+        }).bind(this),2000);
       },
       _onSubmit: function(e){
 
