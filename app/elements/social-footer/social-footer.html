@@ -35,13 +35,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       i{
         color:white;
       }
+      i.hover{
+        color:var(--bg-dark-grey);
+      }
     </style>
 
       <span class='flex'></span>
     <iron-image src='../../images/about-page/anycityisyours.png' width='300' height='64' sizing='contain'></iron-image>
     <span class='social-card self-center'>
-      <i class='twitter icon big'></i>
-      <i class='instagram icon big'></i>
+      <a href='https://twitter.com/muuvapp'>
+        <i class='twitter icon big' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></i>
+      </a>
+      <a href='https://www.instagram.com/muuvapp/'>
+        <i class='instagram icon big' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></i>
+      </a>
       <span class='self-center'>@muuvapp</span>
     </span>
       <span class='flex'></span>
@@ -61,6 +68,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       properties: {
         elementName: {type: String, value: 'social-footer', notify: true}
+      },
+      _toggleHoverOn: function(e){
+        this.toggleClass('hover',true,e.target);
+      },
+      _toggleHoverOff: function(e){
+        this.toggleClass('hover',false,e.target);
       }
     });
   })();
