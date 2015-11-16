@@ -26,6 +26,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-position: center;
         color:white;
       }
+      .feature-card{
+        text-align: center;
+        max-width: 144px;
+      }
+      .feature-card h3{
+        color: var(--accent-color);
+      }
+      .feature-card p{
+        font-size:1em;
+      }
       p{
         text-align:justify;
         line-height: 1.6em;
@@ -42,6 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-size: 1.2em;
         color:var(--accent-color);
       }
+
     </style>
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(max-width : 500px)" query-matches="{{isMobile}}"></iron-media-query>
@@ -51,15 +62,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is='dom-if' if='{{!isMobile}}'>
       <link rel="import" href="desktop-theme.html">
     </template>
-    <span class='flex'></span>
-    <p class='layout vertical center'>Muuv helps you locate events based on who
-      you follow within a 25 mile radius. We let you plan your days and nights in
-      advance in a number of different cities with our own ticketing platform.
-      As a host, not only can you share your events but you can receive your payment
-      seamlessly.
-      You also have access to a community where feedback from guests can help your next Muuv.
-    </p>
-    <span class='flex'></span>
+    <!-- <span class='flex'></span> -->
+
+    <div class='layout horizontal wrap center center-justified self-center flex'>
+      <div class='feature-card layout vertical center center-justify'>
+        <iron-icon src='../../images/about-page/community.svg'></iron-icon>
+        <h3>JOIN A COMMUNITY</h3>
+        <p>
+          Muuv helps you locate events based on who you follow within a 25 mile radius.
+        </p>
+      </div>
+      <div class='feature-card layout vertical center'>
+        <iron-icon src='../../images/about-page/location.svg'></iron-icon>
+        <h3>EVENTS BY LOCATION</h3>
+        <p>
+          Follow friend and receive freedback rfrom guest to help your next Muuv.
+        </p>
+      </div>
+      <div class='feature-card layout vertical center'>
+        <iron-icon src='../../images/about-page/calendar.svg'></iron-icon>
+        <h3>PLAN AHEAD</h3>
+        <p>
+          Plan you days and nights in advance in a number of different cities.
+        </p>
+      </div>
+      <div class='feature-card layout vertical center'>
+        <iron-icon src='../../images/about-page/payment.svg'></iron-icon>
+        <h3>EASY PAYMENT</h3>
+        <p>
+          Buy and sell tickets effortlessly with our own payment processing system.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- <span class='flex'></span> -->
   </template>
   <script>
   (function() {
