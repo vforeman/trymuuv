@@ -23,7 +23,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         min-height: 100%;
-        background: var(--bg-grey);
+        background:white;
+        @apply(--layout-horizontal);
       }
       :host(.fadin){
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
@@ -42,7 +43,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           to   { opacity: 1; }
       }
     </style>
-    <neon-animated-pages id='pages' selected="0" class='layout vertical center'
+    <neon-animated-pages id='pages' selected="0" class='layout vertical center flex self-center'
       entry-animation='{{entryAnimation}}'
       exit-animation='{{exitAnimation}}'>
       <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
