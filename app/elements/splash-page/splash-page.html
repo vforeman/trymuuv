@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="splash-page">
   <template>
@@ -71,24 +72,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       @keyframes shakeup {
          0% {
-           transform: translateY(12px);
+           -webkit-transform: translateY(12px);
+                   transform: translateY(12px);
          }
          50% {
-           transform: translateY(-6px);
+           -webkit-transform: translateY(-6px);
+                   transform: translateY(-6px);
          }
          100% {
-           transform: translateY(0);
-         }
-       }
-       @-moz-keyframes shakeup {
-         0% {
-           -moz-transform: translateY(12px);
-         }
-         50% {
-           -moz-transform: translateY(-6px);
-         }
-         100% {
-           -moz-transform: translateY(0);
+           -webkit-transform: translateY(0);
+                   transform: translateY(0);
          }
        }
        @-webkit-keyframes shakeup {
@@ -102,27 +95,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            -webkit-transform: translateY(0);
          }
        }
-       @-ms-keyframes shakeup {
-         0% {
-           -ms-transform: translateY(12px);
-         }
-         50% {
-           -ms-transform: translateY(-6px);
-         }
-         100% {
-           -ms-transform: translateY(0);
-         }
+       #middle{
+         height:100%;
        }
-       @-o-keyframes shakeup {
-         0% {
-           -o-transform: translateY(12px);
-         }
-         50% {
-           -o-transform: translateY(-6px);
-         }
-         100% {
-           -o-transform: translateY(0);
-         }
+       #arrow{
+         position: absolute;
+         bottom: 0px;
+         left: calc(50% - 32px);
        }
     </style>
 
@@ -138,6 +117,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <muuv-spot position='center'></muuv-spot>
     </template>
 
+    <!-- IRON AJAX -->
+    <iron-ajax id='ajax'
+      on-response='onSubmitSuccess'
+      url='{{mailChimpUrl}}'></iron-ajax>
+
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
@@ -149,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <div class='flex'></div>
-    <div class='layout vertical self-stretch'>
+    <div id='middle' class='layout vertical '>
       <div class='flex'></div>
       <div id='input' class='flex layout vertical center'>
         <div id='emailInput' class='ui input'>
@@ -170,12 +154,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div id='submitBtn' class='ui button'>
           <button is='iron-button' class='ui button'>TELL ME MORE</button>
         </div>
-        <div class='flex'></div>
-        <div class=''>
+        <!-- <div class=''>
           <div class='flex'></div>
-          <iron-icon id='arrow' icon='expand-less'></iron-icon>
-        </div>
+        </div> -->
       </div>
+      <div class='flex'></div>
+      <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
     <div class='flex'></div>
 
@@ -190,6 +174,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       ready: function(){
         setInterval(this._jiggleArrow.bind(this),3000);
+        // hide inputs
+        // this.$.input.style.display = 'none';
         // this.style.background = "url('../../images/splash-page/background.png')";
         // this.style.backgroundRepeat = 'no-repeat';
         // this.style.backgroundSize = 'auto cover';
@@ -201,6 +187,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
+        mailChimpUrl: {type: String, value: '', notify: true},
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
@@ -211,6 +198,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         setTimeout((function(){
           this.toggleClass('shake', false, this.$.arrow);
         }).bind(this),2000);
+      },
+      onSubmitSuccess: function(e){
+
       },
       _onSubmit: function(e){
 
