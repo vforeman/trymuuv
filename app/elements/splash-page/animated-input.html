@@ -59,8 +59,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           };
       }
     </style>
-    <div id='emailInput' class='ui input'>
-      <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
+    <div class='layout horizontal center'>
+      <span class='flex'></span>
+      <div id='emailInput' class='ui input'>
+        <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
+      </div>
+      <span class='flex'></span>
     </div>
     <div id='userTypeInput'>
       <span class='text'>"I usually <span class='text'>

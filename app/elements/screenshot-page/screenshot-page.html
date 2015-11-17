@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
@@ -43,6 +45,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           from { opacity: 0; }
           to   { opacity: 1; }
       }
+      iron-icon{
+        --iron-icon-width:72px;
+        --iron-icon-height:72px;
+      }
     </style>
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
@@ -53,6 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is='dom-if' if='{{!isMobile}}'>
       <link rel="import" href="desktop-theme.html">
     </template>
+    <iron-icon icon='chevron-left' class='self-center' on-click='_swipeLeft'></iron-icon>
     <span class='spacer flex'></span>
     <neon-animated-pages id='pages' selected="0" class='layout horizontal center flex'
       entry-animation='{{entryAnimation}}'
@@ -63,6 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
     </neon-animated-pages>
     <span class='spacer flex'></span>
+    <iron-icon icon='chevron-right' class='self-center' on-click='_swipeRight'></iron-icon>
   </template>
   <script>
   (function() {
@@ -89,16 +97,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _onSwipe: function(e){
         switch(e.type){
           case 'swipe-right':
-            this.entryAnimation = 'slide-from-left-animation';
-            this.exitAnimation = 'slide-right-animation';
-            this.$.pages.selectPrevious();
-            break;
+            this.swipeRight();
           case 'swipe-left':
-            this.entryAnimation = 'slide-from-right-animation';
-            this.exitAnimation = 'slide-left-animation';
-            this.$.pages.selectNext();
+            this._swipeLeft();
             break;
         }
+      },
+      _swipeRight: function(e){
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
+        this.$.pages.selectPrevious();
+      },
+      _swipeLeft: function(e){
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
+        this.$.pages.selectNext();
       },
       _onTrack: function(e){
         switch(e.detail.state) {

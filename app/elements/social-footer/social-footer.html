@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <dom-module id="social-footer">
   <template>
@@ -45,16 +46,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       i.hover{
         color:var(--bg-dark-grey);
       }
+      iron-icon{
+        --iron-icon-width:24px;
+        --iron-icon-height:24px;
+        fill:white;
+        color:white;
+      }
     </style>
 
       <span class='flex'></span>
     <iron-image src='../../images/about-page/anycityisyours.png' width='300' height='64' sizing='contain'></iron-image>
     <span class='social-card self-center'>
       <a href='https://twitter.com/muuvapp' target="_blank">
-        <i class='twitter icon big' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></i>
+        <iron-icon src='../../images/social-footer/twitter.svg' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></iron-icon>
+        <!-- <i class='twitter icon big'></i> -->
       </a>
       <a href='https://www.instagram.com/muuvapp/' target="_blank">
-        <i class='instagram icon big' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></i>
+        <iron-icon src='../../images/social-footer/instagram.svg' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></iron-icon>
+        <!-- <i class='instagram icon big' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></i> -->
       </a>
       <span class='self-center'>@muuvapp</span>
     </span>
