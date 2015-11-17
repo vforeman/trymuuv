@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
@@ -135,6 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class='flex'></div>
     <div id='middle' class='layout vertical '>
       <div class='flex'></div>
+      <iron-image id='centerLogo' src='../../images/splash-page/logo.png' width='200' height='200' sizing='contain'></iron-image>
       <div id='input' class='flex layout vertical center'>
         <div id='emailInput' class='ui input'>
           <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
@@ -151,7 +153,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </span> events."</span>
         </div>
         <!-- <div class='flex'></div> -->
-        <div id='submitBtn' class='ui button'>
+        <div id='submitBtn' class='ui button' on-click='_onSubmit'>
           <button is='iron-button' class='ui button'>TELL ME MORE</button>
         </div>
         <!-- <div class=''>
@@ -176,10 +178,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         setInterval(this._jiggleArrow.bind(this),3000);
         // hide inputs
         // this.$.input.style.display = 'none';
-        // this.style.background = "url('../../images/splash-page/background.png')";
-        // this.style.backgroundRepeat = 'no-repeat';
-        // this.style.backgroundSize = 'auto cover';
-        // this.style.backgroundPosition = 'center center';
+        this.$.centerLogo.style.display = 'none';
+
+
       },
       behaviors: [],
       listeners:{
@@ -203,7 +204,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       },
       _onSubmit: function(e){
-
+        this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
+        this.$.centerLogo.style.display = 'inline';
+        this.$.input.style.display = 'none';
       }
     });
   })();

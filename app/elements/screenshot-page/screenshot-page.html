@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/slide-right-animation.html">
@@ -43,7 +44,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           to   { opacity: 1; }
       }
     </style>
-    <neon-animated-pages id='pages' selected="0" class='layout vertical center flex self-center'
+    <!-- MEDIA QUERY -->
+    <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
+    <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+    <template is='dom-if' if='{{isMobile}}'>
+      <link rel="import" href="mobile-theme.html">
+    </template>
+    <template is='dom-if' if='{{!isMobile}}'>
+      <link rel="import" href="desktop-theme.html">
+    </template>
+    <span class='spacer flex'></span>
+    <neon-animated-pages id='pages' selected="0" class='layout horizontal center flex'
       entry-animation='{{entryAnimation}}'
       exit-animation='{{exitAnimation}}'>
       <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
@@ -51,6 +62,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
       <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
     </neon-animated-pages>
+    <span class='spacer flex'></span>
   </template>
   <script>
   (function() {
