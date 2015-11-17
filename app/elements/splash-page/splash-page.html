@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../muuv-spot/animated-logo.html">
+<link rel="import" href="animated-input.html">
 
 <dom-module id="splash-page">
   <template>
@@ -148,29 +149,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class='flex'></div>
       <animated-logo id='centerLogo' src='../../images/splash-page/logo.png'></animated-logo>
       <animated-logo  id='cornerLogo' src='../../images/splash-page/logo.png'></animated-logo>
-      <div id='input' class='flex layout vertical center'>
-        <div id='emailInput' class='ui input'>
-          <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
-        </div>
-        <div id='userTypeInput'>
-          <span class='text'>"I usually <span class='text'>
-            <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
-              <paper-menu  class="dropdown-content">
-                <paper-item>go to</paper-item>
-                <paper-item>host</paper-item>
-                <paper-item>go to and host</paper-item>
-              </paper-menu>
-            </paper-dropdown-menu>
-          </span> events."</span>
-        </div>
-        <!-- <div class='flex'></div> -->
-        <div id='submitBtn' class='ui button' on-click='_onSubmit'>
-          <button is='iron-button' class='ui button'>TELL ME MORE</button>
-        </div>
-        <!-- <div class=''>
-          <div class='flex'></div>
-        </div> -->
-      </div>
+      <animated-input id='input'></animated-input>
       <div class='flex'></div>
       <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
@@ -188,7 +167,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function(){
         setInterval(this._jiggleArrow.bind(this),3000);
         // hide inputs
-        this.$.input.close();
+        this.$.input.hide();
         this.$.cornerLogo.hide();
         this.$.centerLogo.show();
         // this.$.centerLogo.show();
@@ -196,7 +175,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.centerLogo.hide();
         }).bind(this),2500);
         setTimeout((function(){
-          this.$.input.open();
+          this.$.input.show();
           this.$.cornerLogo.show();
         }).bind(this),3500);
 
