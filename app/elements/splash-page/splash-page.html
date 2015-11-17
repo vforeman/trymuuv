@@ -14,7 +14,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../muuv-spot/animated-logo.html">
 
 <dom-module id="splash-page">
   <template>
@@ -27,13 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-center);
         min-height: 100%;
       }
-      #input{
-        z-index: 3;
-        font-family: 'aktivgrotesk';
-      }
-      #dropdownMenu{
-        --paper-menu-background-dolor: transparent;
-      }
+
+
       #submitBtn{
         border-radius: 64px;
         height: 44px;
@@ -50,28 +48,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --iron-icon-width:64px;
         --iron-icon-height:64px;
       }
+
       paper-dropdown-menu{
+        --paper-dropdown-menu-button:{
+          max-width:256px;
+        };
         --paper-dropdown-menu-input:{
           font-family: 'aktivgrotesk';
           text-align:center;
           font-size:1.6em;
           line-height: 1.3em;
-        }
-      }
-      #userTypeInput{
-          font-family: 'aktivgrotesk';
-        color: white;
-        font-size: 1.6em;
-      }
-      #emailInput{
-        border-radius: 64px;
-        background: var(--bg-grey);
-      }
-      #emailInput input{
-          font-family: 'aktivgrotesk';
-        border-radius: 64px;
-        background: transparent;
-        font-size:1.6em;
+          color:var(--accent-color);
+          --paper-input-container-focus-color: var(--accent-color);
+        };
+        --paper-input-container-input-color: white;
+        --paper-input-container-input:{
+            font-size: 30px;
+          };
       }
       #arrow.shake{
         animation: shakeup 500ms 1 linear;
@@ -81,24 +74,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       @keyframes shakeup {
          0% {
-           transform: translateY(12px);
+           -webkit-transform: translateY(12px);
+                   transform: translateY(12px);
          }
          50% {
-           transform: translateY(-6px);
+           -webkit-transform: translateY(-6px);
+                   transform: translateY(-6px);
          }
          100% {
-           transform: translateY(0);
-         }
-       }
-       @-moz-keyframes shakeup {
-         0% {
-           -moz-transform: translateY(12px);
-         }
-         50% {
-           -moz-transform: translateY(-6px);
-         }
-         100% {
-           -moz-transform: translateY(0);
+           -webkit-transform: translateY(0);
+                   transform: translateY(0);
          }
        }
        @-webkit-keyframes shakeup {
@@ -112,27 +97,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            -webkit-transform: translateY(0);
          }
        }
-       @-ms-keyframes shakeup {
-         0% {
-           -ms-transform: translateY(12px);
-         }
-         50% {
-           -ms-transform: translateY(-6px);
-         }
-         100% {
-           -ms-transform: translateY(0);
-         }
+       #middle{
+         height:100%;
        }
-       @-o-keyframes shakeup {
-         0% {
-           -o-transform: translateY(12px);
-         }
-         50% {
-           -o-transform: translateY(-6px);
-         }
-         100% {
-           -o-transform: translateY(0);
-         }
+       #arrow{
+         position: absolute;
+         bottom: 0px;
+         left: calc(50% - 32px);
+       }
+       #cornerLogo{
+         position: absolute;
+         top:0px;
+         left: 0px;
+         margin-left: 72px;
        }
     </style>
 
@@ -144,40 +121,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <muuv-spot position='bottomright'></muuv-spot>
       <muuv-spot position='center'></muuv-spot>
     </template>
+    <template is='dom-if' if='{{isMobile}}'>
+      <muuv-spot position='center'></muuv-spot>
+    </template>
+
+    <!-- IRON AJAX -->
+    <iron-ajax id='ajax'
+      on-response='onSubmitSuccess'
+      url='{{mailChimpUrl}}'></iron-ajax>
 
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
-
+    <template is='dom-if' if='{{isMobile}}'>
+      <link rel="import" href="mobile-theme.html">
+    </template>
+    <template is='dom-if' if='{{!isMobile}}'>
+      <link rel="import" href="desktop-theme.html">
+    </template>
 
     <div class='flex'></div>
-    <div class='layout vertical self-stretch'>
+    <div id='middle' class='layout vertical '>
       <div class='flex'></div>
+      <animated-logo id='centerLogo' src='../../images/splash-page/logo.png'></animated-logo>
+      <iron-image  id='cornerLogo' src='../../images/splash-page/logo.png' width='200' height='200' sizing='contain'></iron-image>
       <div id='input' class='flex layout vertical center'>
         <div id='emailInput' class='ui input'>
           <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
         </div>
         <div id='userTypeInput'>
-          <span class='text'>I usually <span class='text'>
-            <paper-dropdown-menu label="" selected=''>
-              <paper-menu id='dropdownMenu' class="dropdown-content">
-                <paper-item>Go to</paper-item>
-                <paper-item>Host</paper-item>
-                <paper-item>Both, Host and Attend</paper-item>
+          <span class='text'>"I usually <span class='text'>
+            <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
+              <paper-menu  class="dropdown-content">
+                <paper-item>go to</paper-item>
+                <paper-item>host</paper-item>
+                <paper-item>go to and host</paper-item>
               </paper-menu>
             </paper-dropdown-menu>
-          </span> events.</span>
+          </span> events."</span>
         </div>
-        <div class='flex'></div>
-        <div id='submitBtn' class='ui button'>
+        <!-- <div class='flex'></div> -->
+        <div id='submitBtn' class='ui button' on-click='_onSubmit'>
           <button is='iron-button' class='ui button'>TELL ME MORE</button>
         </div>
-        <div class='flex'></div>
-        <div class='flex'>
+        <!-- <div class=''>
           <div class='flex'></div>
-          <iron-icon id='arrow' icon='expand-less'></iron-icon>
-        </div>
+        </div> -->
       </div>
+      <div class='flex'></div>
+      <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
     <div class='flex'></div>
 
@@ -192,10 +184,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       ready: function(){
         setInterval(this._jiggleArrow.bind(this),3000);
-        // this.style.background = "url('../../images/splash-page/background.png')";
-        // this.style.backgroundRepeat = 'no-repeat';
-        // this.style.backgroundSize = 'auto cover';
-        // this.style.backgroundPosition = 'center center';
+        // hide inputs
+        this.$.input.style.display = 'none';
+        this.$.cornerLogo.style.display = 'none';
+        setTimeout((function(){
+          this.$.centerLogo.style.display = 'none';
+        }).bind(this),2500);
+        setTimeout((function(){
+          this.$.input.style.display = 'inline';
+          this.$.cornerLogo.style.display = 'inline';
+        }).bind(this),3300);
+
       },
       behaviors: [],
       listeners:{
@@ -203,6 +202,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
+        mailChimpUrl: {type: String, value: '', notify: true},
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
@@ -214,8 +214,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.toggleClass('shake', false, this.$.arrow);
         }).bind(this),2000);
       },
-      _onSubmit: function(e){
+      onSubmitSuccess: function(e){
 
+      },
+      _onSubmit: function(e){
+        this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
+        this.$.centerLogo.style.display = 'inline';
+        this.$.input.style.display = 'none';
       }
     });
   })();

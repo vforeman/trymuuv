@@ -1,0 +1,106 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-from-right-animation.html">
+
+<dom-module id="animated-logo">
+  <template>
+    <style is='custom-style'>
+      :host {
+        display: block;
+      }
+      iron-icon.center{
+        --iron-icon-width:var(--logo-width,344px);
+        --iron-icon-height:var(--logo-height,95px);
+      }
+    </style>
+    <iron-icon src='{{src}}' class='center'></iron-icon>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'animated-logo',
+      created: function(){
+      },
+      ready: function(){
+
+      },
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
+      listeners:{
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+      properties: {
+        // entryAnimation: {value: 'scale-up-animation'},
+        // exitAnimation: {value: 'fade-out-animation'},
+        showDisplay: {type: Boolean, notify: true, computed:'_showDisplay(logoContext)', observer: '_showDisplayChanged'},
+        logoContext: {type: Object, notify: true},
+        src: {type: String, notify: true},
+        elementName: {type: String, value: 'animated-logo', notify: true},
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': {
+                // provided by neon-animation/animations/scale-up-animation.html
+                name: 'scale-up-animation',
+                node: this
+              },
+              'exit': {
+                // provided by neon-animation-animations/fade-out-animation.html
+                name: 'fade-out-animation',
+                node: this
+              }
+            }
+          }
+        }
+      },
+      _showDisplayChanged: function(showDisplay){
+        // console.log(showDisplay)
+        if(showDisplay ){
+          this.show();
+        } else if(!showDisplay ){
+          this.hide();
+        }
+      },
+      _showDisplay: function(logoContext){
+        var idv = logoContext.isDialogVisible;
+        var pos = logoContext.position;
+        var ret = (!idv && pos === 'center') || (idv && pos === 'topleft');
+        // console.log('showdisplay equals',ret);
+        // console.log('for logo.',logoContext.position);
+        return ret;
+      },
+      show: function() {
+        this.opened = true;
+        this.style.display = 'inline-block';
+        // run scale-up-animation
+        this.playAnimation('entry');
+      },
+      hide: function() {
+        this.opened = false;
+        // run fade-out-animation
+        this.playAnimation('exit');
+      },
+      _onNeonAnimationFinish: function() {
+        if (!this.opened) {
+          this.style.display = 'none';
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
