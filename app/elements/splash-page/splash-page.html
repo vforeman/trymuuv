@@ -154,7 +154,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class='flex'></div>
       <animated-logo id='centerLogo' src='../../images/splash-page/logo.png'></animated-logo>
       <animated-logo  id='cornerLogo' src='../../images/splash-page/logo.png'></animated-logo>
-      <animated-input id='input'></animated-input>
+      <animated-input id='input' email='{{email}}' user-type='{{userType}}'></animated-input>
       <div class='flex'></div>
       <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
@@ -192,6 +192,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
         mailChimpUrl: {type: String, value: '', notify: true},
+        mailChimpKey: {type: String, value: '74108607df5ce9a24075374e9e6fea8c-us12', notify: true},
+        listId: {type: String, value: 'b513dc2c89', notify: true},
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
@@ -210,6 +212,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
         this.$.centerLogo.style.display = 'inline';
         this.$.input.style.display = 'none';
+        
       }
     });
   })();

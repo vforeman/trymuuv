@@ -27,7 +27,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-radius: 64px;
         height: 44px;
         background: var(--accent-color);
-        margin-top: 32px;
+        margin-top: 22px;
+      }
+      #submitBtn.hover{
+        background: var(--light-accent-color);
       }
       #submitBtn button{
         padding: 4px 4px;
@@ -42,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       paper-dropdown-menu{
         --paper-dropdown-menu-button:{
-          max-width:256px;
+          max-width:220px;
         };
         --paper-dropdown-menu-input:{
           font-family: 'aktivgrotesk';
@@ -58,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           };
       }
       #userTypeInput{
-        margin-bottom: 32px;
+        margin-bottom: 20px;
       }
     </style>
     <div id='userTypeInput'>
@@ -82,7 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- <div class='flex'></div> -->
     <div class='layout horizontal'>
       <span class='flex'></span>
-      <div id='submitBtn' class='ui button self-center' on-click='_onSubmit'>
+      <div id='submitBtn' class='ui button self-center' on-click='_onSubmit' on-mouseenter='_hoverOn' on-mouseleave='_hoverOff'>
         <button is='iron-button' class='ui button'>TELL ME MORE</button>
       </div>
       <span class='flex'></span>
@@ -103,6 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         'neon-animation-finish': '_onNeonAnimationFinish'
       },
       properties: {
+        email: {type: String, notify: true},
         elementName: {type: String, value: 'animated-input', notify: true},
         animationConfig: {
           value: function() {
@@ -136,6 +140,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (!this.opened) {
           this.style.display = 'none';
         }
+      },
+      _hoverOn: function(e){
+        this.toggleClass('hover',true,this.$.submitBtn);
+      },
+      _hoverOff: function(e){
+        this.toggleClass('hover',false,this.$.submitBtn);
       }
     });
   })();
