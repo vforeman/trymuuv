@@ -28,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-radius: 64px;
         height: 44px;
         background: var(--accent-color);
+        margin-top: 32px;
       }
       #submitBtn button{
         padding: 4px 4px;
@@ -40,7 +41,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --iron-icon-width:64px;
         --iron-icon-height:64px;
       }
-
       paper-dropdown-menu{
         --paper-dropdown-menu-button:{
           max-width:256px;
@@ -62,13 +62,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-bottom: 32px;
       }
     </style>
-    <div class='layout horizontal center'>
-      <span class='flex'></span>
-      <div id='emailInput' class='ui input'>
-        <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
-      </div>
-      <span class='flex'></span>
-    </div>
     <div id='userTypeInput'>
       <span class='text'>"I usually <span class='text'>
         <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
@@ -79,6 +72,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-menu>
         </paper-dropdown-menu>
       </span> events."</span>
+    </div>
+    <div class='layout horizontal center'>
+      <span class='flex'></span>
+      <div id='emailInput' class='ui input'>
+        <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
+      </div>
+      <span class='flex'></span>
     </div>
     <!-- <div class='flex'></div> -->
     <div class='layout horizontal'>
