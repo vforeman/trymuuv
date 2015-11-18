@@ -28,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         min-height: 100%;
         background:white;
         @apply(--layout-horizontal);
+        @apply(--layout-justified);
       }
       :host(.fadin){
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
@@ -49,6 +50,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --iron-icon-width:72px;
         --iron-icon-height:72px;
         margin: 0px 5px;
+        color:var(--bg-dark-grey);
+      }
+      H2{
+        text-align: center
       }
     </style>
     <!-- MEDIA QUERY -->
@@ -60,18 +65,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is='dom-if' if='{{!isMobile}}'>
       <link rel="import" href="desktop-theme.html">
     </template>
+
+
+
     <iron-icon icon='chevron-left' class='self-center' on-click='_swipeLeft'></iron-icon>
     <span class='spacer flex'></span>
-    <neon-animated-pages id='pages' selected="0" class='layout horizontal center'
+
+    <neon-animated-pages id='pages' selected="0" class='layout horizontal center center-justified flex'
       entry-animation='{{entryAnimation}}'
       exit-animation='{{exitAnimation}}'>
-      <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
-      <iron-image src="../../images/screenshot-page/profileiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
-      <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
-      <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>EVENT STREAM</h2>
+        <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>PROFILE</h2>
+        <iron-image src="../../images/screenshot-page/profileiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>EVENT PAGE</h2>
+        <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>CHECKOUT</h2>
+        <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
     </neon-animated-pages>
+
     <span class='spacer flex'></span>
     <iron-icon icon='chevron-right' class='self-center' on-click='_swipeRight'></iron-icon>
+
+
+
   </template>
   <script>
   (function() {
