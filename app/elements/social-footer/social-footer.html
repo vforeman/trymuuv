@@ -43,15 +43,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       i{
         color:white;
       }
-      i.hover{
-        color:var(--bg-dark-grey);
-      }
       iron-icon{
         --iron-icon-width:24px;
         --iron-icon-height:24px;
         margin: 0px 3px;
         fill:white;
         color:white;
+      }
+      iron-icon.hover{
+        --iron-icon-width:24px;
+        --iron-icon-height:24px;
+        margin: 0px 3px;
+        fill: var(--bg-dark-grey);
+        color: var(--bg-dark-grey);
       }
       .handle{
         margin-left:3px;
@@ -62,11 +66,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-image src='../../images/about-page/anycityisyours.png' width='300' height='64' sizing='contain'></iron-image>
     <span class='social-card self-center'>
       <a href='https://twitter.com/muuvapp' target="_blank">
-        <iron-icon src='../../images/social-footer/twitter.svg' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></iron-icon>
+        <iron-icon id='twitterIcon' src='../../images/social-footer/twitter.svg' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></iron-icon>
         <!-- <i class='twitter icon big'></i> -->
       </a>
       <a href='https://www.instagram.com/muuvapp/' target="_blank">
-        <iron-icon src='../../images/social-footer/instagram.svg' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></iron-icon>
+        <iron-icon id='instagramIcon' src='../../images/social-footer/instagram.svg' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></iron-icon>
         <!-- <i class='instagram icon big' on-mouseenter='_toggleHoverOn' on-mouseleave='_toggleHoverOff'></i> -->
       </a>
       <span class='self-center handle'>@muuvapp</span>
@@ -91,9 +95,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _toggleHoverOn: function(e){
         this.toggleClass('hover',true,e.target);
+        switch(e.target.id){
+          case 'twitterIcon':
+            this.$.twitterIcon.src = '../../images/social-footer/twitter-dark.svg';
+            break;
+          case 'instagramIcon':
+            this.$.instagramIcon.src = '../../images/social-footer/instagram-dark.svg';
+        }
       },
       _toggleHoverOff: function(e){
         this.toggleClass('hover',false,e.target);
+        switch(e.target.id){
+          case 'twitterIcon':
+            this.$.twitterIcon.src = '../../images/social-footer/twitter.svg';
+            break;
+          case 'instagramIcon':
+            this.$.instagramIcon.src = '../../images/social-footer/instagram.svg';
+        }
       }
     });
   })();
