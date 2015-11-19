@@ -145,6 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- IRON AJAX -->
     <iron-ajax id='ajax'
+      handle-as='json'
       on-response='onSubmitSuccess'
       url='{{mailChimpUrl}}'></iron-ajax>
 
@@ -166,7 +167,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template is='dom-if' if='{{isMobile}}'>
         <animated-logo  id='mobileLogo' src='../../images/splash-page/logo-dark.png'></animated-logo>
       </template>
-      <animated-input id='input' email='{{email}}' user-type='{{userType}}'></animated-input>
+      <animated-input id='input' email='{{email}}' user-type='{{userType}}'
+        on-submit-mailchimp-email='_onSubmit'></animated-input>
       <div class='flex'></div>
       <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
@@ -218,13 +220,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }).bind(this),2000);
       },
       onSubmitSuccess: function(e){
-
+        console.log(e.detail.response)
       },
       _onSubmit: function(e){
         this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
         this.$.centerLogo.style.display = 'inline';
         this.$.input.style.display = 'none';
-
+        this.$.ajax.url = 'https://us12.api.mailchimp.com/lists';
+        this.$.ajax.headers = '{"Authorization:74108607df5ce9a24075374e9e6fea8c-us12"}';
+        this.$.ajax.generateRequest();
       }
     });
   })();

@@ -146,6 +146,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _hoverOff: function(e){
         this.toggleClass('hover',false,this.$.submitBtn);
+      },
+      _onSubmit: function(e){
+        this.fire('submit-mailchimp-email')
       }
     });
   })();
