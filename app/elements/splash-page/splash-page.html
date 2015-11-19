@@ -206,7 +206,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
         mailChimpUrl: {type: String, value: '', notify: true},
-        mailChimpKey: {type: String, value: '74108607df5ce9a24075374e9e6fea8c-us12', notify: true},
+        mailChimpKey: {type: String, value: 'pubkey-c8c16ac939c4919b382e4e5b0925ba01', notify: true},
         listId: {type: String, value: 'b513dc2c89', notify: true},
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
@@ -226,8 +226,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
         this.$.centerLogo.style.display = 'inline';
         this.$.input.style.display = 'none';
-        this.$.ajax.url = 'https://us12.api.mailchimp.com/lists';
-        this.$.ajax.headers = '{"Authorization:74108607df5ce9a24075374e9e6fea8c-us12"}';
+        this.$.ajax.url = 'https://api:key-3ax6xnjp29jd6fds4gc373sgvjxteol0@api.mailgun.net/v3/samples.mailgun.org/log';
+        this.$.ajax.headers='{' +
+          '"Access-Control-Allow-Origin": "*"'
+          '"Access-Control-Allow-Methods": "GET, POST, OPTIONS"'
+          '"Access-Control-Allow-Headers": "Origin, Content-Type, Accept, Authorization, X-Request-With"'
+          '"Access-Control-Allow-Credentials": "true"'+
+          '}';
         this.$.ajax.generateRequest();
       }
     });
