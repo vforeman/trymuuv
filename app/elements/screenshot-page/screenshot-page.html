@@ -50,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       iron-icon{
         --iron-icon-width:72px;
         --iron-icon-height:72px;
-        margin: 0px 144px;
+        margin: 0px 96px;
         color:var(--bg-dark-grey);
       }
       h2{
@@ -59,6 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
         font-family: 'aktivgrotesk';
         color: var(--bg-dark-grey);
+        min-width: 300px;
       }
     </style>
     <!-- MEDIA QUERY -->
@@ -131,6 +132,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         exitAnimation: {type: String, notify: true},
         entryAnimation: {type: String, notify: true},
         isSwiping: {type: Boolean, value: false, notify: true},
+        isDesktop: {type: Boolean, notify: true},
+        isMobile: {type: Boolean, notify: true},
         elementName: {type: String, value: 'screenshot-page', notify: true}
       },
       _onSwipe: function(e){
