@@ -160,7 +160,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <div class='flex'></div>
-    <div id='middle' class='layout vertical '>
+    <div id='middle' class='layout vertical'>
       <div class='flex'></div>
       <animated-logo id='centerLogo' src='../../images/splash-page/logo.png'></animated-logo>
       <animated-logo  id='cornerLogo' src='../../images/splash-page/logo.png'></animated-logo>
@@ -201,6 +201,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       behaviors: [],
       listeners:{
+        'track': '_onTrack',
       },
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
@@ -211,6 +212,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
+      },
+      _onTrack: function(e){
+        
       },
       _jiggleArrow: function(){
         console.log('jiggleing....');
