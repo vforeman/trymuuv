@@ -129,14 +129,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       created: function(){
       },
       ready: function(){
+
       },
       behaviors: [],
       listeners:{
       },
       properties: {
+        onParallax: {type: Object, notify: true},
         isDesktop: {type: Boolean, notify: true},
         isMobile: {type: Boolean, notify: true},
         elementName: {type: String, value: 'about-page', notify: true}
+      },
+      _onParallax: function(e,detail){
+
       }
     });
   })();

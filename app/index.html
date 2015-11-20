@@ -61,8 +61,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template is="dom-bind" id="app">
 
     <!-- <iron-pages selected="0"> -->
-      <splash-page></splash-page>
-      <about-page></about-page>
+      <splash-page on-parallax-scroll='{{onParallax}}'></splash-page>
+      <about-page parallax-handler='{{onParallax}}'></about-page>
       <screenshot-page></screenshot-page>
       <mission-page></mission-page>
       <social-footer></social-footer>

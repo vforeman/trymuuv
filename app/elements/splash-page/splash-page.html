@@ -202,6 +202,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       behaviors: [],
       listeners:{
         'track': '_onTrack',
+        'mousewheel': '_onScroll'
       },
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
@@ -213,8 +214,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
       },
+      _onScroll: function(e){
+        console.log(e.deltaY);
+        this.fire('parallax-scroll',e);
+      },
       _onTrack: function(e){
-        
+
       },
       _jiggleArrow: function(){
         console.log('jiggleing....');
