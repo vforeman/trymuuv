@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
@@ -26,6 +28,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         min-height: 100%;
         background:white;
         @apply(--layout-horizontal);
+        @apply(--layout-justified);
+        min-width:100%;
       }
       :host(.fadin){
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
@@ -43,6 +47,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           from { opacity: 0; }
           to   { opacity: 1; }
       }
+      iron-icon{
+        --iron-icon-width:72px;
+        --iron-icon-height:72px;
+        margin: 0px 96px;
+        color:var(--bg-dark-grey);
+      }
+      h2{
+        font-size: 2.7em;
+        margin-top: 48px;
+        text-align: center;
+        font-family: 'aktivgrotesk';
+        color: var(--bg-dark-grey);
+        min-width: 300px;
+      }
     </style>
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
@@ -53,16 +71,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is='dom-if' if='{{!isMobile}}'>
       <link rel="import" href="desktop-theme.html">
     </template>
+
+
+
+    <iron-icon icon='chevron-left' class='self-center' on-click='_swipeLeft'></iron-icon>
     <span class='spacer flex'></span>
-    <neon-animated-pages id='pages' selected="0" class='layout horizontal center flex'
+
+    <neon-animated-pages id='pages' selected="0" class='layout horizontal center center-justified flex'
       entry-animation='{{entryAnimation}}'
       exit-animation='{{exitAnimation}}'>
-      <iron-image src="../../images/screenshot-page/streamiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
-      <iron-image src="../../images/screenshot-page/profileiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
-      <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
-      <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='675' width='350' preload sizing="contain"></iron-image>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>EVENT STREAM</h2>
+        <iron-image src="../../images/screenshot-page/streamiphone.png" height='622' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>PROFILE</h2>
+        <iron-image src="../../images/screenshot-page/profileiphone.png" height='622' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>EVENT PAGE</h2>
+        <iron-image src="../../images/screenshot-page/eventpageiphone.png" height='622' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
+      <section class='layout vertical center'>
+        <span class='flex'></span>
+        <h2>CHECKOUT</h2>
+        <iron-image src="../../images/screenshot-page/checkoutiphone.png" height='622' width='350' preload sizing="contain" class='self-center'></iron-image>
+        <span class='flex'></span>
+      </section>
     </neon-animated-pages>
+
     <span class='spacer flex'></span>
+    <iron-icon icon='chevron-right' class='self-center' on-click='_swipeRight'></iron-icon>
+
+
+
   </template>
   <script>
   (function() {
@@ -78,27 +126,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
         'track': '_onTrack',
         'swipe-right': '_onSwipe',
-        'swipe-left': '_onSwipe'
+        'swipe-left': '_onSwipe',
+        'scroll-up': '_onSwipe',
+        'scroll-down': '_onSwipe'
       },
       properties: {
         exitAnimation: {type: String, notify: true},
         entryAnimation: {type: String, notify: true},
         isSwiping: {type: Boolean, value: false, notify: true},
+        isDesktop: {type: Boolean, notify: true},
+        isMobile: {type: Boolean, notify: true},
         elementName: {type: String, value: 'screenshot-page', notify: true}
       },
       _onSwipe: function(e){
+        console.log(e.type);
         switch(e.type){
           case 'swipe-right':
-            this.entryAnimation = 'slide-from-left-animation';
-            this.exitAnimation = 'slide-right-animation';
-            this.$.pages.selectPrevious();
+            this._swipeRight();
             break;
           case 'swipe-left':
-            this.entryAnimation = 'slide-from-right-animation';
-            this.exitAnimation = 'slide-left-animation';
-            this.$.pages.selectNext();
+            this._swipeLeft();
+            break;
+          case 'scroll-up':
+            this._scrollUp();
+            break;
+          case 'scroll-down':
+            this._scrollDown();
             break;
         }
+      },
+      _scrollUp: function(e){
+        window.scrollBy(0,20)
+        this.isSwiping = false;
+      },
+      _scrollDown: function(e){
+        window.scrollBy(0,-20)
+        this.isSwiping = false;
+
+      },
+      _swipeRight: function(e){
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
+        this.$.pages.selectPrevious();
+      },
+      _swipeLeft: function(e){
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
+        this.$.pages.selectNext();
       },
       _onTrack: function(e){
         switch(e.detail.state) {
@@ -118,6 +192,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 } else {
                   this.isSwiping = true;
                   this.fire('swipe-right');
+                }
+              }
+              if(Math.abs(e.detail.dy) > 20 && Math.abs(e.detail.dy) > Math.abs(e.detail.dx) && !this.isSwiping){
+                if(e.detail.dy < 0){
+                  this.isSwiping = true;
+                  this.fire('scroll-up');
+                } else {
+                  this.isSwiping = true;
+                  this.fire('scroll-down');
                 }
               }
             break;

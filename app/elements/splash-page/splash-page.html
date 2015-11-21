@@ -17,7 +17,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../muuv-spot/animated-logo.html">
+<link rel="import" href="animated-input.html">
 
 <dom-module id="splash-page">
   <template>
@@ -29,8 +31,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-horizontal);
         @apply(--layout-center);
         min-height: 100%;
+        min-width:100%;
       }
-
+      #input{
+        --paper-dialog-background-color: transparent;
+      }
 
       #submitBtn{
         border-radius: 64px;
@@ -47,6 +52,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       iron-icon{
         --iron-icon-width:64px;
         --iron-icon-height:64px;
+        color: var(--bg-dark-grey);
+        margin-bottom: 72px;
       }
 
       paper-dropdown-menu{
@@ -102,14 +109,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        }
        #arrow{
          position: absolute;
-         bottom: 0px;
+         bottom: 5px;
          left: calc(50% - 32px);
        }
        #cornerLogo{
          position: absolute;
          top:0px;
          left: 0px;
-         margin-left: 72px;
+         margin-left: 44px;
+         margin-top: 44px;
+         --logo-width: 251px;
+         --logo-height:64px;
+       }
+       #mobileLogo{
+         position: absolute;
+         top: 0px;
+         left: calc(50% - 147px);
+         margin-left: 44px;
+         --logo-width: 195px;
+         --logo-height:104px;
        }
     </style>
 
@@ -127,6 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- IRON AJAX -->
     <iron-ajax id='ajax'
+      handle-as='json'
       on-response='onSubmitSuccess'
       url='{{mailChimpUrl}}'></iron-ajax>
 
@@ -141,33 +160,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <div class='flex'></div>
-    <div id='middle' class='layout vertical '>
+    <div id='middle' class='layout vertical'>
       <div class='flex'></div>
       <animated-logo id='centerLogo' src='../../images/splash-page/logo.png'></animated-logo>
-      <iron-image  id='cornerLogo' src='../../images/splash-page/logo.png' width='200' height='200' sizing='contain'></iron-image>
-      <div id='input' class='flex layout vertical center'>
-        <div id='emailInput' class='ui input'>
-          <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
-        </div>
-        <div id='userTypeInput'>
-          <span class='text'>"I usually <span class='text'>
-            <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
-              <paper-menu  class="dropdown-content">
-                <paper-item>go to</paper-item>
-                <paper-item>host</paper-item>
-                <paper-item>go to and host</paper-item>
-              </paper-menu>
-            </paper-dropdown-menu>
-          </span> events."</span>
-        </div>
-        <!-- <div class='flex'></div> -->
-        <div id='submitBtn' class='ui button' on-click='_onSubmit'>
-          <button is='iron-button' class='ui button'>TELL ME MORE</button>
-        </div>
-        <!-- <div class=''>
-          <div class='flex'></div>
-        </div> -->
-      </div>
+      <animated-logo  id='cornerLogo' src='../../images/splash-page/logo.png'></animated-logo>
+      <template is='dom-if' if='{{isMobile}}'>
+        <animated-logo  id='mobileLogo' src='../../images/splash-page/topmobile.svg'></animated-logo>
+      </template>
+      <animated-input id='input' email='{{email}}' user-type='{{userType}}'
+        on-submit-mailchimp-email='_onSubmit'></animated-input>
       <div class='flex'></div>
       <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
@@ -185,27 +186,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function(){
         setInterval(this._jiggleArrow.bind(this),3000);
         // hide inputs
-        this.$.input.style.display = 'none';
-        this.$.cornerLogo.style.display = 'none';
+        this.$.input.hide();
+        this.$.cornerLogo.hide();
+        this.$.centerLogo.show();
+        // this.$.centerLogo.show();
         setTimeout((function(){
-          this.$.centerLogo.style.display = 'none';
+          this.$.centerLogo.hide();
         }).bind(this),2500);
         setTimeout((function(){
-          this.$.input.style.display = 'inline';
-          this.$.cornerLogo.style.display = 'inline';
-        }).bind(this),3300);
+          this.$.input.show();
+          this.$.cornerLogo.show();
+        }).bind(this),3500);
 
       },
       behaviors: [],
       listeners:{
+        'track': '_onTrack',
+        'mousewheel': '_onScroll'
       },
       properties: {
         isMobile: {type: Boolean, value: false, notify: true},
         isDesktop: {type: Boolean, value: false, notify: true},
         mailChimpUrl: {type: String, value: '', notify: true},
+        mailChimpKey: {type: String, value: 'pubkey-c8c16ac939c4919b382e4e5b0925ba01', notify: true},
+        listId: {type: String, value: 'b513dc2c89', notify: true},
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
+      },
+      _onScroll: function(e){
+        console.log(e.deltaY);
+        this.fire('parallax-scroll',e);
+      },
+      _onTrack: function(e){
+
       },
       _jiggleArrow: function(){
         console.log('jiggleing....');
@@ -215,12 +229,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }).bind(this),2000);
       },
       onSubmitSuccess: function(e){
-
+        console.log(e.detail.response)
       },
       _onSubmit: function(e){
         this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
         this.$.centerLogo.style.display = 'inline';
         this.$.input.style.display = 'none';
+        this.$.ajax.url = 'https://api:key-3ax6xnjp29jd6fds4gc373sgvjxteol0@api.mailgun.net/v3/samples.mailgun.org/log';
+        this.$.ajax.headers='{' +
+          '"Access-Control-Allow-Origin": "*"'
+          '"Access-Control-Allow-Methods": "GET, POST, OPTIONS"'
+          '"Access-Control-Allow-Headers": "Origin, Content-Type, Accept, Authorization, X-Request-With"'
+          '"Access-Control-Allow-Credentials": "true"'+
+          '}';
+        this.$.ajax.generateRequest();
       }
     });
   })();

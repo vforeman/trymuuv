@@ -1,0 +1,157 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-from-right-animation.html">
+
+<dom-module id="animated-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+        @apply(--layout-vertical);
+      }
+      #submitBtn{
+        border-radius: 64px;
+        height: 44px;
+        background: var(--accent-color);
+        margin-top: 22px;
+      }
+      #submitBtn.hover{
+        background: var(--light-accent-color);
+      }
+      #submitBtn button{
+        padding: 4px 4px;
+        font-family: 'aktivgrotesk';
+        background:transparent;
+        color:white;
+        border-radius: 64px;
+      }
+      iron-icon{
+        --iron-icon-width:64px;
+        --iron-icon-height:64px;
+      }
+      paper-dropdown-menu{
+        --paper-dropdown-menu-button:{
+          max-width:220px;
+        };
+        --paper-dropdown-menu-input:{
+          font-family: 'aktivgrotesk';
+          text-align:center;
+          font-size:1.6em;
+          line-height: 1.3em;
+          color:var(--accent-color);
+          --paper-input-container-focus-color: var(--accent-color);
+        };
+        --paper-input-container-input-color: white;
+        --paper-input-container-input:{
+            font-size: 30px;
+          };
+      }
+      #userTypeInput{
+        margin-bottom: 20px;
+      }
+    </style>
+    <div id='userTypeInput'>
+      <span class='text'>"I usually <span class='text'>
+        <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
+          <paper-menu  class="dropdown-content">
+            <paper-item>go to</paper-item>
+            <paper-item>host</paper-item>
+            <paper-item>go to and host</paper-item>
+          </paper-menu>
+        </paper-dropdown-menu>
+      </span> events."</span>
+    </div>
+    <div class='layout horizontal center'>
+      <span class='flex'></span>
+      <div id='emailInput' class='ui input'>
+        <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
+      </div>
+      <span class='flex'></span>
+    </div>
+    <!-- <div class='flex'></div> -->
+    <div class='layout horizontal'>
+      <span class='flex'></span>
+      <div id='submitBtn' class='ui button self-center' on-click='_onSubmit' on-mouseenter='_hoverOn' on-mouseleave='_hoverOff'>
+        <button is='iron-button' class='ui button'>TELL ME MORE</button>
+      </div>
+      <span class='flex'></span>
+    </div>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'animated-input',
+      created: function(){
+      },
+      ready: function(){
+      },
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
+      listeners:{
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+      properties: {
+        email: {type: String, notify: true},
+        elementName: {type: String, value: 'animated-input', notify: true},
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': {
+                // provided by neon-animation/animations/scale-up-animation.html
+                name: 'scale-up-animation',
+                node: this
+              },
+              'exit': {
+                // provided by neon-animation-animations/fade-out-animation.html
+                name: 'fade-out-animation',
+                node: this
+              }
+            }
+          }
+        }
+      },
+      show: function() {
+        this.opened = true;
+        this.style.display = 'inline-block';
+        // run scale-up-animation
+        this.playAnimation('entry');
+      },
+      hide: function() {
+        this.opened = false;
+        // run fade-out-animation
+        this.playAnimation('exit');
+      },
+      _onNeonAnimationFinish: function() {
+        if (!this.opened) {
+          this.style.display = 'none';
+        }
+      },
+      _hoverOn: function(e){
+        this.toggleClass('hover',true,this.$.submitBtn);
+      },
+      _hoverOff: function(e){
+        this.toggleClass('hover',false,this.$.submitBtn);
+      },
+      _onSubmit: function(e){
+        this.fire('submit-mailchimp-email')
+      }
+    });
+  })();
+  </script>
+</dom-module>

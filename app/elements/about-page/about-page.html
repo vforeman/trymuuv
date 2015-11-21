@@ -20,18 +20,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         /*background: var(--bg-grey);*/
         @apply(--layout-horizontal);
         @apply(--layout-center);
+        background: black;
         background: url('../../images/about-page/usa.png');
         background-repeat: no-repeat;
         background-size: cover;
-        background-position: center;
+        background-position:0px 0px;
         color:white;
         border-top-style: solid;
         border-top-color:white;
         border-top-width: 1px;
+        margin-bottom: 16px;
       }
+
       .feature-card{
         text-align: center;
-        max-width: 144px;
+        /*max-width: 144px;*/
+        margin-left:64px;
+        margin-right:64px;
       }
       .feature-card h3{
         color: var(--accent-color);
@@ -59,42 +64,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(max-width : 500px)" query-matches="{{isMobile}}"></iron-media-query>
+
     <template is='dom-if' if='{{isMobile}}'>
       <link rel="import" href="mobile-theme.html">
     </template>
     <template is='dom-if' if='{{!isMobile}}'>
       <link rel="import" href="desktop-theme.html">
     </template>
-    <!-- <span class='flex'></span> -->
 
     <div class='layout horizontal wrap  center-justified self-center flex'>
-      <div class='feature-card layout vertical center'>
-        <iron-icon src='../../images/about-page/community.svg'></iron-icon>
-        <h3>JOIN A COMMUNITY</h3>
-        <p class='flex'>
-          Muuv helps you locate events based on who you follow within a 25 mile radius.
-        </p>
+
+      <div  class='layout horizontal'>
+
+        <div class='feature-card layout vertical center flex'>
+          <iron-icon src='../../images/about-page/community.svg'></iron-icon>
+          <h3>JOIN A COMMUNITY</h3>
+          <p class='flex'>
+            Follow friends and receive feedback from guests to help your next Muuv.
+          </p>
+        </div>
+
+        <div class='feature-card layout vertical center flex'>
+          <iron-icon src='../../images/about-page/location.svg'></iron-icon>
+          <h3>EVENTS BY LOCATION</h3>
+          <p class='flex'>
+            Locate events based on who you follow within a 25 mile radius.
+          </p>
+        </div>
+
       </div>
-      <div class='feature-card layout vertical center'>
-        <iron-icon src='../../images/about-page/location.svg'></iron-icon>
-        <h3>EVENTS BY LOCATION</h3>
-        <p class='flex'>
-          Follow friend and receive freedback rfrom guest to help your next Muuv.
-        </p>
-      </div>
-      <div class='feature-card layout vertical center'>
-        <iron-icon src='../../images/about-page/calendar.svg'></iron-icon>
-        <h3>PLAN AHEAD</h3>
-        <p class='flex'>
-          Plan you days and nights in advance in a number of different cities.
-        </p>
-      </div>
-      <div class='feature-card layout vertical center'>
-        <iron-icon src='../../images/about-page/payment.svg'></iron-icon>
-        <h3>EASY PAYMENT</h3>
-        <p class='flex'>
-          Buy and sell tickets effortlessly with our own payment processing system.
-        </p>
+
+
+      <div class='layout horizontal'>
+
+        <div class='feature-card layout vertical center flex'>
+          <iron-icon src='../../images/about-page/calendar.svg'></iron-icon>
+          <h3>PLAN AHEAD</h3>
+          <p class='flex'>
+            Plan your days and nights in advance in a number of different cities.
+          </p>
+        </div>
+
+        <div class='feature-card layout vertical center flex'>
+          <iron-icon src='../../images/about-page/payment.svg'></iron-icon>
+          <h3>EASY PAYMENT</h3>
+          <p class='flex'>
+            Buy and sell tickets effortlessly with our own payment processing system.
+          </p>
+        </div>
+
       </div>
 
     </div>
@@ -111,12 +129,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       created: function(){
       },
       ready: function(){
+
       },
       behaviors: [],
       listeners:{
       },
       properties: {
+        onParallax: {type: Object, notify: true},
+        isDesktop: {type: Boolean, notify: true},
+        isMobile: {type: Boolean, notify: true},
         elementName: {type: String, value: 'about-page', notify: true}
+      },
+      _onParallax: function(e,detail){
+
       }
     });
   })();
