@@ -126,7 +126,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
         'track': '_onTrack',
         'swipe-right': '_onSwipe',
-        'swipe-left': '_onSwipe'
+        'swipe-left': '_onSwipe',
+        'scroll-up': '_onSwipe',
+        'scroll-down': '_onSwipe'
       },
       properties: {
         exitAnimation: {type: String, notify: true},
@@ -137,13 +139,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         elementName: {type: String, value: 'screenshot-page', notify: true}
       },
       _onSwipe: function(e){
+        console.log(e.type);
         switch(e.type){
           case 'swipe-right':
-            this.swipeRight();
+            this._swipeRight();
+            break;
           case 'swipe-left':
             this._swipeLeft();
             break;
+          case 'scroll-up':
+            this._scrollUp();
+            break;
+          case 'scroll-down':
+            this._scrollDown();
+            break;
         }
+      },
+      _scrollUp: function(e){
+        window.scrollBy(0,20)
+        this.isSwiping = false;
+      },
+      _scrollDown: function(e){
+        window.scrollBy(0,-20)
+        this.isSwiping = false;
+
       },
       _swipeRight: function(e){
         this.entryAnimation = 'slide-from-left-animation';
@@ -173,6 +192,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 } else {
                   this.isSwiping = true;
                   this.fire('swipe-right');
+                }
+              }
+              if(Math.abs(e.detail.dy) > 20 && Math.abs(e.detail.dy) > Math.abs(e.detail.dx) && !this.isSwiping){
+                if(e.detail.dy < 0){
+                  this.isSwiping = true;
+                  this.fire('scroll-up');
+                } else {
+                  this.isSwiping = true;
+                  this.fire('scroll-down');
                 }
               }
             break;

@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
@@ -63,6 +64,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #userTypeInput{
         margin-bottom: 20px;
       }
+      #emailInput{
+        border-style: solild;
+        border-width: 1px;
+        border-color: var(--bg-dark-grey);
+        font-size:1em;
+        background: transparent;
+      }
+      #emailInput input{
+        font-size:1em;
+        background: transparent;
+      }
+      #emailInput input::-webkit-input-placeholder{
+        font-size:1em;
+        color:white;
+      }
+      #emailInput input::-moz-input-placeholder{
+        font-size:1em;
+        color:white;
+      }
+      #emailInput input:-moz-input-placeholder{
+        font-size:1em;
+        color:white;
+      }
+      #emailInput input:-ms-input-placeholder{
+        font-size:1em;
+        color:white;
+      }
+
     </style>
     <div id='userTypeInput'>
       <span class='text'>"I usually <span class='text'>
@@ -76,11 +105,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </span> events."</span>
     </div>
     <div class='layout horizontal center'>
-      <span class='flex'></span>
-      <div id='emailInput' class='ui input'>
+      <!-- <span class='flex'></span> -->
+      <div id='emailInput' class='ui input flex'>
         <input is='iron-input' class='ui input' placeholder='email' bind-value='{{email}}'></input>
       </div>
-      <span class='flex'></span>
+      <!-- <span class='flex'></span> -->
     </div>
     <!-- <div class='flex'></div> -->
     <div class='layout horizontal'>

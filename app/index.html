@@ -14,7 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content=" initial-scale=1,shrink-to-fit=no">
   <meta name="generator" content="muuv" />
   <title>muuv</title>
   <!-- Place favicon.ico in the `app/` directory -->
@@ -48,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -61,8 +61,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template is="dom-bind" id="app">
 
     <!-- <iron-pages selected="0"> -->
-      <splash-page></splash-page>
-      <about-page></about-page>
+      <splash-page on-parallax-scroll='{{onParallax}}'></splash-page>
+      <about-page parallax-handler='{{onParallax}}'></about-page>
       <screenshot-page></screenshot-page>
       <mission-page></mission-page>
       <social-footer></social-footer>

@@ -53,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --iron-icon-width:64px;
         --iron-icon-height:64px;
         color: var(--bg-dark-grey);
-        margin-bottom: 72px;
+        margin-bottom: 32px;
       }
 
       paper-dropdown-menu{
@@ -73,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             font-size: 30px;
           };
       }
+
       #arrow.shake{
         animation: shakeup 500ms 1 linear;
         -moz-animation: shakeup 500ms 1 linear;
@@ -130,6 +131,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          --logo-height:104px;
        }
     </style>
+    <!-- MEDIA QUERY -->
+    <iron-media-query query="(min-width : 401px)" query-matches="{{isDesktop}}"></iron-media-query>
+    <iron-media-query query="(max-width : 375px)" query-matches="{{isMobile}}"></iron-media-query>
 
     <!-- SPOTS -->
     <template is='dom-if' if='{{isDesktop}}'>
@@ -137,10 +141,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <muuv-spot position='bottomleft'></muuv-spot>
       <muuv-spot position='topright'></muuv-spot>
       <muuv-spot position='bottomright'></muuv-spot>
-      <muuv-spot position='center'></muuv-spot>
+      <muuv-spot position='center' is-desktop=[[isDesktop]]></muuv-spot>
     </template>
     <template is='dom-if' if='{{isMobile}}'>
-      <muuv-spot position='center'></muuv-spot>
+      <muuv-spot position='center' is-mobile='[[isMobile]]'></muuv-spot>
     </template>
 
     <!-- IRON AJAX -->
@@ -149,9 +153,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-response='onSubmitSuccess'
       url='{{mailChimpUrl}}'></iron-ajax>
 
-    <!-- MEDIA QUERY -->
-    <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
-    <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+
     <template is='dom-if' if='{{isMobile}}'>
       <link rel="import" href="mobile-theme.html">
     </template>
@@ -160,7 +162,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <div class='flex'></div>
-    <div id='middle' class='layout vertical '>
+    <div id='middle' class='layout vertical'>
       <div class='flex'></div>
       <animated-logo id='centerLogo' src='../../images/splash-page/logo.png'></animated-logo>
       <animated-logo  id='cornerLogo' src='../../images/splash-page/logo.png'></animated-logo>
@@ -195,7 +197,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }).bind(this),2500);
         setTimeout((function(){
           this.$.input.show();
-          this.$.cornerLogo.show();
+          if(this.isDesktop){
+            this.$.cornerLogo.show();
+          }
         }).bind(this),3500);
 
       },
@@ -203,14 +207,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
       },
       properties: {
-        isMobile: {type: Boolean, value: false, notify: true},
-        isDesktop: {type: Boolean, value: false, notify: true},
+        isMobile: {type: Boolean, notify: true},
+        isDesktop: {type: Boolean, notify: true},
         mailChimpUrl: {type: String, value: '', notify: true},
         mailChimpKey: {type: String, value: 'pubkey-c8c16ac939c4919b382e4e5b0925ba01', notify: true},
         listId: {type: String, value: 'b513dc2c89', notify: true},
         email: {type: String, value: '', notify: true},
         userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
+      },
+      _onScroll: function(e){
+        console.log(e.deltaY);
+        this.fire('parallax-scroll',e);
+      },
+      _onTrack: function(e){
+
       },
       _jiggleArrow: function(){
         console.log('jiggleing....');

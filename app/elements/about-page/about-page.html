@@ -20,14 +20,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         /*background: var(--bg-grey);*/
         @apply(--layout-horizontal);
         @apply(--layout-center);
+        background: black;
         background: url('../../images/about-page/usa.png');
         background-repeat: no-repeat;
         background-size: cover;
-        background-position: center;
+        background-position:0px 0px;
         color:white;
         border-top-style: solid;
         border-top-color:white;
         border-top-width: 1px;
+        margin-bottom: 16px;
       }
 
       .feature-card{
@@ -127,14 +129,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       created: function(){
       },
       ready: function(){
+
       },
       behaviors: [],
       listeners:{
       },
       properties: {
+        onParallax: {type: Object, notify: true},
         isDesktop: {type: Boolean, notify: true},
         isMobile: {type: Boolean, notify: true},
         elementName: {type: String, value: 'about-page', notify: true}
+      },
+      _onParallax: function(e,detail){
+
       }
     });
   })();
