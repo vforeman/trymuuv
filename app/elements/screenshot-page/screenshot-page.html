@@ -64,7 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
-    <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+    <iron-media-query query="(min-device-width : 375px) and (max-device-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
     <template is='dom-if' if='{{isMobile}}'>
       <link rel="import" href="mobile-theme.html">
     </template>
