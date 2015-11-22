@@ -45,6 +45,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </style>
       </template>
 
+      <template is='dom-if' if='{{isMobile}}'>
+        <template is='dom-if' if='{{center}}'>
+          <style is='custom-style'>
+            :host.center{ width:calc(1064px/2.2); height:calc(790px/2.2); position: absolute; overflow: visible; top: calc(60% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          </style>
+        </template>
+      </template>
       <template is='dom-if' if='{{isDesktop}}'>
         <template is='dom-if' if='{{center}}'>
           <!-- @TODO scale the center image to increase the size depending on thhe detected -->
@@ -55,17 +63,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </template>
       </template>
 
-      <template is='dom-if' if='{{isMobile}}'>
-        <template is='dom-if' if='{{center}}'>
-          <style is='custom-style'>
-            :host.center{ width:calc(1064px/2.2); height:calc(790px/2.2); position: absolute; overflow: visible; top: calc(60% - 790px/4.4); left: calc(50% - 1064px/4.4); }
-            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
-          </style>
-        </template>
-      </template>
 
     <!-- SPOT SVG -->
-        <iron-icon id='spot' src="{{_imageUrl(position,theme)}}"></iron-icon>  </template>
+        <iron-icon id='spot' src="{{_imageUrl(position,theme)}}"></iron-icon>
+
+      </template>
 
 
 

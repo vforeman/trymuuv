@@ -137,10 +137,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <muuv-spot position='bottomleft'></muuv-spot>
       <muuv-spot position='topright'></muuv-spot>
       <muuv-spot position='bottomright'></muuv-spot>
-      <muuv-spot position='center' is-mobile='[[isMobile]]' is-desktop=[[isDesktop]]></muuv-spot>
+      <muuv-spot position='center' is-desktop=[[isDesktop]]></muuv-spot>
     </template>
     <template is='dom-if' if='{{isMobile}}'>
-      <muuv-spot position='center' is-mobile='[[isMobile]]' is-desktop=[[isDesktop]]></muuv-spot>
+      <muuv-spot position='center' is-mobile='[[isMobile]]'></muuv-spot>
     </template>
 
     <!-- IRON AJAX -->
@@ -151,7 +151,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- MEDIA QUERY -->
     <iron-media-query query="(min-width : 401px)" query-matches="{{isDesktop}}"></iron-media-query>
-    <iron-media-query query="(min-width : 0px) and (max-width : 400px)" query-matches="{{isMobile}}"></iron-media-query>
+    <iron-media-query query="(max-width : 400px)" query-matches="{{isMobile}}"></iron-media-query>
 
     <template is='dom-if' if='{{isMobile}}'>
       <link rel="import" href="mobile-theme.html">
