@@ -2,6 +2,7 @@
   "name": "polymer-starter-kit",
   "private": true,
   "dependencies": {
+    "firebase-element": "GoogleWebComponents/firebase-element#~1.0.8",
     "iron-elements": "PolymerElements/iron-elements#1.0.4",
     "mixpanel": "~2.7.1",
     "neon-elements": "PolymerElements/neon-elements#1.0.0",

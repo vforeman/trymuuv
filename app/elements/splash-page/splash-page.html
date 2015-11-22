@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-document.html">
 <link rel="import" href="../muuv-spot/animated-logo.html">
 <link rel="import" href="animated-input.html">
 
@@ -139,6 +140,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="(min-width : 401px)" query-matches="{{isDesktop}}"></iron-media-query>
     <iron-media-query query="(max-width : 375px)" query-matches="{{isMobile}}"></iron-media-query>
 
+    <firebase-document id='firebase' location='https://muuv-splash.firebaseio.com/'
+      on-firebase-value='_onFirebaseValue'></firebase-document>
+
     <!-- SPOTS -->
     <template is='dom-if' if='{{isDesktop}}'>
       <muuv-spot position='topleft'></muuv-spot>
@@ -211,9 +215,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       listeners:{
       },
       properties: {
+        firebase: {type: Object, notify: true},
         isMobile: {type: Boolean, notify: true},
         isDesktop: {type: Boolean, notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
+      },
+      _onFirebaseValue: function(e,snapshot){
+        this.firebase = snapshot;
+        console.log('got firebase reference');
       },
       _onScroll: function(e){
         console.log(e.deltaY);
@@ -232,11 +241,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onSubmitSuccess: function(e){
         console.log(e.detail.response)
       },
-      _onSubmit: function(e){
+      _onSubmit: function(e, inp){
+        //inp.email, inp.userType;
         this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
         this.$.centerLogo.style.display = 'inline';
         this.$.input.style.display = 'none';
-
+        this.firebase.child(inp.userType).ref().push(inp.email);
       }
     });
   })();
