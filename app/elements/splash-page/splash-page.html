@@ -188,17 +188,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function(){
         setInterval(this._jiggleArrow.bind(this),3000);
         // hide inputs
-        this.$.input.hide();
-        this.$.cornerLogo.hide();
-        this.$.centerLogo.show();
+        // this.$.input.hide();
+        this.$.cornerLogo.show();
+        this.$.centerLogo.hide();
         // this.$.centerLogo.show();
         setTimeout((function(){
-          this.$.centerLogo.hide();
+          // this.$.centerLogo.hide();
         }).bind(this),2500);
         setTimeout((function(){
-          this.$.input.show();
+          // this.$.input.show();
           if(this.isDesktop){
-            this.$.cornerLogo.show();
+            // this.$.cornerLogo.show();
           }
         }).bind(this),3500);
 
