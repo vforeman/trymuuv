@@ -173,8 +173,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template is='dom-if' if='{{isMobile}}'>
         <animated-logo  id='mobileLogo' src='../../images/splash-page/topmobile.svg'></animated-logo>
       </template>
-      <animated-input id='input' email='{{email}}' user-type='{{userType}}'
-        on-submit-mailchimp-email='_onSubmit'></animated-input>
+      <animated-input id='input'
+        on-submit-signup='_onSubmit'></animated-input>
       <div class='flex'></div>
       <iron-icon id='arrow' icon='expand-less' class='self-center'></iron-icon>
     </div>
@@ -213,11 +213,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         isMobile: {type: Boolean, notify: true},
         isDesktop: {type: Boolean, notify: true},
-        mailChimpUrl: {type: String, value: '', notify: true},
-        mailChimpKey: {type: String, value: 'pubkey-c8c16ac939c4919b382e4e5b0925ba01', notify: true},
-        listId: {type: String, value: 'b513dc2c89', notify: true},
-        email: {type: String, value: '', notify: true},
-        userType: {type: String, value: 'splash-page', notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
       },
       _onScroll: function(e){
@@ -241,14 +236,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.centerLogo.src = '../../images/splash-page/anycityisyours.png';
         this.$.centerLogo.style.display = 'inline';
         this.$.input.style.display = 'none';
-        this.$.ajax.url = 'https://api:key-3ax6xnjp29jd6fds4gc373sgvjxteol0@api.mailgun.net/v3/samples.mailgun.org/log';
-        this.$.ajax.headers='{' +
-          '"Access-Control-Allow-Origin": "*"'
-          '"Access-Control-Allow-Methods": "GET, POST, OPTIONS"'
-          '"Access-Control-Allow-Headers": "Origin, Content-Type, Accept, Authorization, X-Request-With"'
-          '"Access-Control-Allow-Credentials": "true"'+
-          '}';
-        this.$.ajax.generateRequest();
+
       }
     });
   })();

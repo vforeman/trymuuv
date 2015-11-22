@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
@@ -93,13 +94,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     </style>
+    <paper-toast id='toast'></paper-toast>
     <div id='userTypeInput'>
       <span class='text'>"I usually <span class='text'>
-        <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'>
+        <!-- @TODO change underline color to purple -->
+        <paper-dropdown-menu id='dropdownMenu' label="" selected='' placeholder='...'
+          selected-item-label='{{userType}}'>
           <paper-menu  class="dropdown-content">
-            <paper-item>go to</paper-item>
-            <paper-item>host</paper-item>
-            <paper-item>go to and host</paper-item>
+            <paper-item label='go to'>go to</paper-item>
+            <paper-item label='host'>host</paper-item>
+            <paper-item label='go to and host'>go to and host</paper-item>
           </paper-menu>
         </paper-dropdown-menu>
       </span> events."</span>
@@ -136,7 +140,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         'neon-animation-finish': '_onNeonAnimationFinish'
       },
       properties: {
-        email: {type: String, notify: true},
+        userType: {type: String, notify: true, observer: '_inputChanged'},
+        email: {type: String, notify: true, observer: '_inputChanged'},
         elementName: {type: String, value: 'animated-input', notify: true},
         animationConfig: {
           value: function() {
@@ -154,6 +159,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           }
         }
+      },
+      _inputChanged: function(inp){
+        console.log('input changed', inp);
       },
       show: function() {
         this.opened = true;
@@ -178,7 +186,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.toggleClass('hover',false,this.$.submitBtn);
       },
       _onSubmit: function(e){
-        this.fire('submit-mailchimp-email')
+        console.log('email',this.email.length)
+        console.log('userType',this.userType)
+        if(this.email.length === 0 && !this.userType){
+          this.$.toast.text = 'Please enter your usage preference and email before submitting.';
+          this.$.toast.show();
+        } else if(!this.email){
+          this.$.toast.text = 'Please enter your email before submitting.';
+          this.$.toast.show();
+        } else if(!this.userType){
+          this.$.toast.text = 'Please enter your usage preference before submitting.';
+          this.$.toast.show();
+        }else if(this.email !== '' && this.userType){
+          this.fire('submit-signup',{email:this.email,userType:this.userType});
+        }
       }
     });
   })();
