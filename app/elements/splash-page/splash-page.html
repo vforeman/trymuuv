@@ -137,10 +137,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <muuv-spot position='bottomleft'></muuv-spot>
       <muuv-spot position='topright'></muuv-spot>
       <muuv-spot position='bottomright'></muuv-spot>
-      <muuv-spot position='center'></muuv-spot>
+      <muuv-spot position='center' is-mobile='[[isMobile]]' is-desktop=[[isDesktop]]></muuv-spot>
     </template>
     <template is='dom-if' if='{{isMobile}}'>
-      <muuv-spot position='center'></muuv-spot>
+      <muuv-spot position='center' is-mobile='[[isMobile]]' is-desktop=[[isDesktop]]></muuv-spot>
     </template>
 
     <!-- IRON AJAX -->
@@ -150,8 +150,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       url='{{mailChimpUrl}}'></iron-ajax>
 
     <!-- MEDIA QUERY -->
-    <iron-media-query query="(min-width: 501px)" query-matches="{{isDesktop}}"></iron-media-query>
-    <iron-media-query query="(min-width : 375px) and (max-width : 627px)" query-matches="{{isMobile}}"></iron-media-query>
+    <iron-media-query query="(min-width : 401px)" query-matches="{{isDesktop}}"></iron-media-query>
+    <iron-media-query query="(min-width : 0px) and (max-width : 400px)" query-matches="{{isMobile}}"></iron-media-query>
+
     <template is='dom-if' if='{{isMobile}}'>
       <link rel="import" href="mobile-theme.html">
     </template>
@@ -195,18 +196,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }).bind(this),2500);
         setTimeout((function(){
           this.$.input.show();
-          this.$.cornerLogo.show();
+          if(this.isDesktop){
+            this.$.cornerLogo.show();
+          }
         }).bind(this),3500);
 
       },
       behaviors: [],
       listeners:{
-        'track': '_onTrack',
-        'mousewheel': '_onScroll'
       },
       properties: {
-        isMobile: {type: Boolean, value: false, notify: true},
-        isDesktop: {type: Boolean, value: false, notify: true},
+        isMobile: {type: Boolean, notify: true},
+        isDesktop: {type: Boolean, notify: true},
         mailChimpUrl: {type: String, value: '', notify: true},
         mailChimpKey: {type: String, value: 'pubkey-c8c16ac939c4919b382e4e5b0925ba01', notify: true},
         listId: {type: String, value: 'b513dc2c89', notify: true},
