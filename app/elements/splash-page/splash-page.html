@@ -143,6 +143,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <firebase-document id='firebase' location='https://muuv-splash.firebaseio.com/'
       on-firebase-value='_onFirebaseValue'></firebase-document>
 
+    <template is='dom-if' if='{{isMobile}}'>
+      <link rel="import" href="mobile-theme.html">
+    </template>
+    <template is='dom-if' if='{{isDesktop}}'>
+      <link rel="import" href="desktop-theme.html">
+    </template>
     <!-- SPOTS -->
     <template is='dom-if' if='{{isDesktop}}'>
       <muuv-spot position='topleft'></muuv-spot>
@@ -162,12 +168,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       url='{{mailChimpUrl}}'></iron-ajax>
 
 
-    <template is='dom-if' if='{{isMobile}}'>
-      <link rel="import" href="mobile-theme.html">
-    </template>
-    <template is='dom-if' if='{{!isMobile}}'>
-      <link rel="import" href="desktop-theme.html">
-    </template>
 
     <div class='flex'></div>
     <div id='middle' class='layout vertical'>
