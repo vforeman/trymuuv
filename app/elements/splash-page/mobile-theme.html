@@ -1,9 +1,10 @@
 <style is='custom-style'>
+
+
+
+
   /*IPHONE 6*/
     @media (min-width: 0) and (max-width: 414px)  {
-
-
-
           splash-page::shadow{
             font-size:1.3em;
             padding: 0px 0px;
@@ -52,6 +53,59 @@
 
 
      }
+    @media (min-width: 374px) and (max-width: 667px) and (orientation: landscape) {
+      splash-page::shadow{
+        font-size:1.3em;
+        padding: 0px 0px;
+        max-width: 375px;
+        max-height: 559px;
+        overflow:hidden;
+      }
+      splash-page::shadow #arrow{
+        margin-top: 24px;
+        top: calc(100% - 790px/4);
+      }
+      splash-page::shadow muuv-spot{
+        overflow:hidden;
+        /*max-width: 430px;*/
+      }
+      splash-page::shadow #cornerLogo{
+        display: none;
+      }
+
+      splash-page::shadow animated-input::shadow #emailInput{
+        border-style: solid;
+        border-width: 1px;
+        border-color: var(--bg-dark-grey);
+        font-size:1em;
+        border-radius: 52px;
+        background: transparent;
+      }
+      splash-page::shadow animated-input::shadow #emailInput input{
+          font-family: 'aktivgrotesk';
+        border-radius: 64px;
+        background: transparent;
+        font-size:.8em;
+      }
+      splash-page::shadow#input{
+        z-index: 3;
+        font-family: 'aktivgrotesk';
+      }
+      splash-page::shadow animated-input::shadow #userTypeInput{
+          font-family: 'aktivgrotesk';
+        color: white;
+        font-size: .8em;
+      }
+      splash-page::shadow {
+        text-align: center;
+      }
+
+      splash-page::shadow{
+        min-height:667px;
+        max-height:667px;
+        height: 667px;
+      }
+    }
 
      /*IPHONE 6 PLUS*/
     @media all and (min-width:376px) and (max-width: 415px)  {
