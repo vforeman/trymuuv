@@ -149,6 +149,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is='dom-if' if='{{isDesktop}}'>
       <link rel="import" href="desktop-theme.html">
     </template>
+    <template is='dom-if' if='{{isTwitter}}'>
+      <style is='custom-style'>
+        muuv-spot:host.center{
+           top: calc(50% - 790px/4.4);
+        }
+      </style>
+    </template>
     <!-- SPOTS -->
     <template is='dom-if' if='{{isDesktop}}'>
       <muuv-spot position='topleft'></muuv-spot>
@@ -209,6 +216,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // this.$.cornerLogo.show();
           }
         }).bind(this),3500);
+        this.isTwitter = navigator.userAgent == 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508';
 
       },
       behaviors: [],
@@ -216,6 +224,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       properties: {
         firebase: {type: Object, notify: true},
+        isTwitter: {type: Boolean, notify: true},
         isMobile: {type: Boolean, notify: true},
         isDesktop: {type: Boolean, notify: true},
         elementName: {type: String, value: 'splash-page', notify: true}
