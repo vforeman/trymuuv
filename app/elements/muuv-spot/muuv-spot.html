@@ -87,6 +87,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
 
       </template>
+      <template is='dom-if' if='{{isTwitter}}'>
+
+        <template is='dom-if' if='{{center}}'>
+          <style is='custom-style'>
+
+          @media (min-width: 0px) and (max-width: 320px) {
+            :host.center{ width:calc(1064px/2.2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(55% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          }
+          @media (min-width: 321px) and (max-width: 568px) and (orientation: landscape) {
+            :host.center{ width:calc(1064px/2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(100% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          }
+          @media (min-width: 321px) and (max-width: 414px)  {
+            :host.center{ width:calc(1064px/2.2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(50% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          }
+          @media (min-width: 568) and (max-width: 667px) and (orientation: landscape) {
+            :host.center{ width:calc(1064px/2.2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(90% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          }
+          @media (min-width:786px) and (max-width: 786px) and (orientation: landscape) {
+            :host.center{ width:calc(1064px/2); height:calc(790px/2); position: absolute; overflow: visible; top: calc(78% - 790px/4.2); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2); --iron-icon-width: calc(1064px/2); }
+          }
+          </style>
+        </template>
+
+      </template>
 
 
 
@@ -106,11 +135,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       created: function(){
       },
       ready: function(){
+        if(navigator.userAgent == 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508'){
+          this.isTwitter = true;
+        }
       },
       behaviors: [],
       listeners:{
       },
       properties: {
+        isTwitter: {type: Boolean, value:false, notify: true},
         isDesktop: {type: Boolean, value:false, notify: true,observer: '_isDesktopChanged'},
         isMobile: {type: Boolean, value:false, notify: true,observer: '_isMobileChanged'},
         theme: {type: String, value:'dark', notify: true},
@@ -144,6 +177,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log('isMobile',isMobile);
         if(isMobile){
           this.isDesktop = false;
+          if(this.isTwitter){
+            this.isMobile = false;
+          }
         }
       }
     });
