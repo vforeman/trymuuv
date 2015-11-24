@@ -49,8 +49,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <template is='dom-if' if='{{center}}'>
             <style is='custom-style'>
-            @media (min-width: 668px)  {
-              :host.center{ width:calc(1064px/2); height:calc(790px/2); position: absolute; overflow: visible; top: calc(50% - 790px/4.2); left: calc(50% - 1064px/4.4); }
+            @media (min-width: 787px)  {
+              :host.center{ width:calc(1064px/2); height:calc(790px/2); position: absolute; overflow: visible; top: calc(50% - 790px/4.2); left: calc(49.5% - 1064px/4.4); }
               iron-icon.center{ --iron-icon-height: calc(790px/2); --iron-icon-width: calc(1064px/2); }
             }
             </style>
@@ -62,15 +62,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <template is='dom-if' if='{{center}}'>
           <style is='custom-style'>
-          @media (min-width: 0) and (max-width: 414px)  {
+
+          @media (min-width: 0px) and (max-width: 320px) {
+            :host.center{ width:calc(1064px/2.2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(65% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          }
+          @media (min-width: 321px) and (max-width: 568px) and (orientation: landscape) {
+            :host.center{ width:calc(1064px/2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(100% - 790px/4.4); left: calc(50% - 1064px/4.4); }
+            iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
+          }
+          @media (min-width: 321px) and (max-width: 414px)  {
             :host.center{ width:calc(1064px/2.2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(60% - 790px/4.4); left: calc(50% - 1064px/4.4); }
             iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
           }
-          @media (min-width: 0) and (max-width: 667px) and (orientation: landscape) {
+          @media (min-width: 568) and (max-width: 667px) and (orientation: landscape) {
             :host.center{ width:calc(1064px/2.2); height:calc(790px/2); position: absolute; overflow: hidden; top: calc(90% - 790px/4.4); left: calc(50% - 1064px/4.4); }
             iron-icon.center{ --iron-icon-height: calc(790px/2.2); --iron-icon-width: calc(1064px/2.2); }
           }
-          @media (max-width: 786px) and (orientation: landscape) {
+          @media (min-width:786px) and (max-width: 786px) and (orientation: landscape) {
             :host.center{ width:calc(1064px/2); height:calc(790px/2); position: absolute; overflow: visible; top: calc(78% - 790px/4.2); left: calc(50% - 1064px/4.4); }
             iron-icon.center{ --iron-icon-height: calc(790px/2); --iron-icon-width: calc(1064px/2); }
           }
